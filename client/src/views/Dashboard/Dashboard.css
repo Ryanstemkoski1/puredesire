@@ -1,0 +1,713 @@
+/** header styles **/
+
+.smallLogo {
+    position: absolute;
+    top: 8px;
+    background: #fff;
+    left: 28px;
+    padding: 28px 12px;
+}
+
+.logoutButton {
+    background: transparent;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+    .logoutButton:hover {
+        color: #1C94A8;
+    }
+
+.breadCrumb {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #707070;
+    padding: 40px 20px 40px 0;
+    line-height: 1;
+}
+
+
+
+.navStyles {
+    margin: 40px 20px 0 30px;
+    text-align: left;
+    border-right: 2px solid #edebeb;
+    padding-right: 50px;
+}
+    .navStyles nav {
+        border-top: 1px solid #D8D8D8;
+    }
+
+
+/** header mobile styles **/
+
+@media screen and (max-width: 767px) {
+    header {
+        display: none;
+    }
+
+    .userToolbar {
+        flex-wrap: wrap !important;
+    }
+
+    .tableWrap {
+        width: 100%;
+        overflow-x: scroll;
+    }
+        .tableWrap table {
+            min-width: 790px;
+        }
+
+    .smallLogo {
+        display: block !important;
+    }
+
+    .breadCrumb {
+        padding: 15px 20px;
+    }
+
+    header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-hg5tx5-MuiPaper-root-MuiAppBar-root {
+        box-shadow: 0 0 0 2px rgb(0 0 0 / 20%);
+    }
+
+    .firstCol {
+        width: 36% !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    header.mobileHeader {
+        display: none !important;
+    }
+
+    .language-select-root svg {
+        fill: #1c94a8 !important;
+    }
+
+    .language-select-root button {
+        color: #4C4C4C !important;
+    }
+
+    .logoutButton {
+        color: #4C4C4C;
+        font-size: 15px !important;
+        line-height: 1 !important;
+        padding: 0 !important;
+    }
+
+    .language-select-root button {
+        color: #4C4C4C !important;
+        padding: 0 30px;
+        font-size: 15px;
+        text-transform: capitalize !important;
+        line-height: 1 !important;
+    }
+
+    .viewToggle span.MuiFormControlLabel-label {
+        color: #4C4C4C !important;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1 !important;
+    }
+
+
+    .languageList ul {
+        background: #eeeeee75;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .languageList div {
+        border-top: 1px dashed #d1d1d1;
+    }
+}
+
+/** mobile drawer styling **/
+
+.mobileDrawer .MuiDrawer-paper {
+    width: 100%;
+    background: linear-gradient(181deg, #1C998C, #36505B);
+}
+
+.mobileDrawer .navStyles {
+    border: 0;
+    padding: 0;
+    margin: 30px;
+}
+    .mobileDrawer .navStyles nav {
+        border: 0;
+        padding: 0;
+    }
+
+    .mobileDrawer .navStyles a, .mobileDrawer .navStyles span, .mobileDrawer .navStyles button {
+        color: #fff !important;
+        text-transform: capitalize;
+        letter-spacing: 0;
+        font-size: 17px;
+        font-weight: 500;
+    }
+        .mobileDrawer .navStyles nav svg {
+            background: #fff !important;
+            border-radius: 5px !important;
+            font-size: 39px !important;
+        }
+            .mobileDrawer .navStyles nav a:hover svg, .mobileDrawer .navStyles nav a:focus svg {
+                fill: #fff !important;
+                background: transparent !important;
+                font-size: 39px !important;
+            }
+
+    .mobileDrawer .logoutButton svg {
+        fill: #fff !important;
+    }
+
+ul.userToolbar {
+    border-top: 1px solid #ffffff52;
+    margin: 50px 0 !important;
+    padding: 0;
+    border-bottom: 1px solid #ffffff52;
+    text-align: left;
+    padding-top: 20px !important;
+    padding-bottom: 35px !important;
+}
+    ul.userToolbar span {
+        display: flex;
+        align-items: center;
+    }
+       ul.userToolbar span img {
+            padding: 11px 11px 11px 8px;
+            width: 60px;
+        }
+
+    ul.userToolbar li {
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+    }
+        .user {
+            margin-bottom: -6px;
+        }
+
+    ul.userToolbar a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 0 6px;
+    }
+        ul.userToolbar a svg {
+            fill: #fff;
+            margin-right: 8px;
+        }
+
+
+.navCta p, .navCta h2 {
+    color: #fff;
+}
+    .navCta p {
+        margin-top: 0;
+    }
+
+    .navCta h2 {
+        line-height: 1;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+.mobileDrawer .navCta a {
+    background: #fff;
+    padding: 10px;
+    color: #222225 !important;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 7px;
+}
+
+header.mobileHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    body .css-1p63slh-MuiToolbar-root {
+        padding: 20px 30px !important;
+    }
+
+@media screen and (min-width: 768px) {
+    .navCta {
+        margin: 30px 20px 0 32px;
+        background: linear-gradient(45deg, #1C998C, #36505B);
+        text-align: left;
+        padding: 10px 30px;
+        border-radius: 10px;
+    }
+        .navCta a {
+            background: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 10px;
+            margin-bottom: 27px;
+        }
+}
+
+/** custom link styling **/
+
+.button-link {
+    background: linear-gradient(to right, #1C94A8, #1A9182);
+    padding: 9px 15px;
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+    font-size: 15px;
+}
+    .button-link:hover {
+        background: linear-gradient(to right, #0B6776, #0D6257);
+    }
+
+    .button-link.outline {
+        background: transparent;
+        border: 2px solid #1A9182;
+        color: #1A9182 !important;
+        transition: 0.3s all;
+        padding: 7px 15px;
+    }
+        .button-link.outline:hover {
+            background:#1A9182;
+            color: #fff !important;
+        }
+
+    .button-link.outline.red {
+        color: #E85E40 !important;
+        border-color: #E85E40;
+        transition: 0.3s all;
+        padding: 7px 15px;
+    }
+
+        .button-link.outline.red:hover {
+            background: #E85E40;
+            border: 2px solid #E85E40 !important;
+            color: #ffffff !important;
+        }
+
+.language-select-root button svg {
+    fill: #fff;
+    margin-right: 9px;
+    font-size: 20px;
+}
+
+.languageList ul {
+    padding: 0;
+}
+
+    .languageList .MuiListSubheader-root {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: -1px;
+        background: transparent;
+        text-transform: uppercase;
+    }
+
+/** ACCORDION STYLES **/
+.MuiAccordion-root:first-child .accordionToggle {
+    border-top: 0 !important;
+}
+
+.accordionToggle {
+    padding: 27px 0 !important;
+    background: transparent !important;
+}
+    .accordionToggle {
+        border-top: 1px solid #e0e0e0 !important;
+    }
+        .accordionToggle div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 !important;
+        }
+
+.single div {
+        margin: 0 !Important;
+    }
+        .accordionTitle {
+            width: 66%;
+            text-align: left;
+            color: #4C4C4C;
+            line-height: 1;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        @media screen and (max-width: 1510px) {
+            .accordionTitle {
+                padding-left: 20px;
+            }
+        }
+            .accordionTitle svg {
+                fill: #000;
+                position: relative;
+                top: 4px;
+            }
+
+        .accordionImage {
+            width: 98px;
+            height: 98px;
+            background: #eee;
+            border-radius: 10px;
+            text-align: center;
+            overflow: hidden;
+        }
+        @media screen and (min-width: 1366px) {
+            .accordionImage {
+                min-width: 98px;
+            }
+
+            .firstCol {
+                width: 68%;
+            }
+        }
+.MuiAccordionSummary-root {
+    margin-bottom: 0 !important;
+}
+
+.accordionDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0 !important;
+}
+    .accordionDetails .accordionTitle {
+        width: 44%;
+    }
+
+    .single .accordionTitle {
+        width: 44%;
+    }
+
+.accordionStats {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #1C998C;
+}
+    .accordionStats span {
+        display: inline-block;
+        padding: 5px 14px;
+    }
+        .accordionStats strong {
+            color: #4C4C4C;
+            font-size: 18px;
+            position: relative;
+            top: 2px;
+            padding-left: 4px;
+        }
+
+.single .accordionStats {
+    display: block !important;
+}
+    .single .accordionStats span {
+        display: block !important;
+        padding-bottom: 0;
+        padding-top: 0;
+        text-align: right;
+        line-height: 1;
+        margin-bottom: 11px;
+    }
+
+    /** accordion responsive styles **/
+
+    @media screen and (max-width: 1024px) {
+        .accordionToggle {
+            display: block !important;
+        }
+            .accordionToggle div {
+                display: block;
+            }
+
+
+
+            .accordionImage {
+                display: inline-block !important;
+                width: 20% !important;
+                float: left;
+            }
+
+            .accordionTitle {
+                display: inline-block !important;
+                width: 71% !important;
+                margin-top: 0 !Important;
+                line-height: 1.2 !important;
+            }
+
+        .accordionDetails {
+            padding: 20px 0 !important;
+        }
+            .accordionDetails .accordionTitle {
+                padding-left: 0 !important;
+                font-size: 18px !important;
+            }
+
+            .accordionStats {
+                text-align: left;
+                margin-left: 20px;
+            }
+                .accordionStats span {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    line-height: 1;
+                }
+
+            .accordionBtns {
+                text-align: right;
+            }
+                .accordionDetails .accordionBtns a {
+                    margin-right: 0 !important;
+                    margin-top: 5px !important;
+                    padding: 3px 10px !important;
+                    font-size: 14px;
+                }
+
+            .single .accordionStats {
+                margin-bottom: 20px !important;
+            }
+
+        body .css-9zgbfc-MuiToolbar-root {
+            padding: 0 20px !important;
+        }
+
+        .css-13wyc20-MuiPaper-root-MuiAppBar-root {
+            box-shadow: 0 0 4px rgb(0 0 0 / 30%) !important;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1700px) {
+        .accordionBtns {
+            display: flex;
+        }
+
+        .css-44mweq-MuiAccordionDetails-root {
+            padding-left: 0 !important;
+        }
+
+        .accordionStats strong {
+            display: block;
+        }
+
+        .accordionStats span {
+            text-align: right;
+        }
+        .accordionDetails .accordionStats {
+            display: flex;
+            line-height: 1.1;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .tableWrap {
+            width: 100%;
+            overflow-x: scroll;
+        }
+            .tableWrap table {
+                min-width: 790px;
+            }
+
+        .navStyles {
+            padding-right: 0px!important;
+            margin: 40px 20px 0 20px!important;
+        }
+
+        .navStyles img {
+            padding-bottom: 0 !important;
+        }
+
+        .css-qlmcuo-MuiPaper-root-MuiAppBar-root {
+            margin-left: 290px !important;
+            width: calc(100% - 289px) !important;
+        }
+
+        .css-1p63slh-MuiToolbar-root {
+            min-height: 62px;
+        }
+
+        .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-9zgbfc-MuiToolbar-root {
+            justify-content: flex-end;
+        }
+
+        body .css-1lj6pdy-MuiContainer-root {
+            padding: 10px 10px 10px 0 !important;
+        }
+
+        .breadCrumb {
+            display: none !important;
+        }
+
+        .navStyles a:hover {
+            border-radius: 9px 0 0 9px !important;
+        }
+        .navCta {
+            margin: 30px 20px 0 20px !important;
+        }
+
+        .css-h0upic-MuiDrawer-docked .MuiDrawer-paper {
+            width: 290px !important;
+        }
+
+        .css-1jcfdrd {
+            width: 290px !important;
+        }
+
+        .css-13wyc20-MuiPaper-root-MuiAppBar-root {
+            width: calc(100% - 290px) !important;
+            width: 290px !important;
+        }
+    }
+
+/** table styling **/
+.productsTable {
+    margin-top: 21px;
+}
+    .productsTable th {
+        font-weight: 700;
+        color: #1C998C;
+        border-top: 1px solid #e0e0e0;
+        font-size: 14px;
+        letter-spacing: .7px;
+    }
+
+    .productsTable td {
+        font-size: 15px;
+        padding: 25px 0px;
+    }
+        .productsTable tr td {
+            border: 0 !important;
+        }
+
+
+
+
+.firstCol {
+    width: 38%;
+}
+/** base form styling **/
+label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.form-group {
+    margin: 60px 0px;
+}
+
+/** colorPicker styling **/
+
+.colorPicker fieldset {
+    border: 0 !important;
+}
+
+.colorPicker input {
+    padding: 0 !important;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+}
+    .colorPicker input[type=color] {
+        width: 53px;
+        height: 53px;
+        margin: -4px -4px -4px 0;
+        border: 0 !important;
+        overflow: hidden;
+    }
+
+.colorPicker span {
+    display: block;
+    line-height: 1;
+    margin-top: 10px;
+}
+
+.colorPicker .pickerWrap {
+    display: flex;
+}
+
+.colorPicker .pickerText {
+    padding-left: 10px !important;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    border-radius: 0 5px 5px 0 !important;
+}
+    .colorPicker .pickerText:focus, .colorPicker .pickerText:focus-visible {
+        border: 2px solid #1c94a8 !important;
+        outline: 0;
+    }
+
+/** accordion expand icon **/
+.Mui-expanded h2 svg {
+    transform: rotate(180deg);
+}
+
+.MuiAccordionSummary-expandIconWrapper {
+    margin-left: 10px;
+}
+
+/** MUI styling overrides - delete if conflicting **/
+.MuiToolbar-root button {
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.css-1ow8ej8-MuiToolbar-root h1, header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionAbsolute.css-w44h7q-MuiPaper-root-MuiAppBar-root .breadCrumb {
+    margin-left: 148px;
+}
+
+.MuiPaper-root.css-1b7hko-MuiPaper-root-MuiDrawer-paper img.drawerLogo {
+    opacity: 1;
+    transition: 0.6s all;
+}
+
+.MuiDrawer-root.MuiDrawer-docked.css-xc4j8j-MuiDrawer-docked span, .MuiDrawer-root.MuiDrawer-docked.css-xc4j8j-MuiDrawer-docked img.drawerLogo {
+    opacity: 0;
+    transition: 0.3s all;
+}
+
+.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.css-1oeiycf-MuiButtonBase-root-MuiListItemButton-root {
+    padding: 11px;
+}
+
+.MuiDrawer-root.MuiDrawer-docked.css-xc4j8j-MuiDrawer-docked .collapseIcon {
+    text-align: center !important;
+    display: flex !important;
+    width: auto;
+    align-items: center;
+    justify-content: center !important;
+    transform: rotate(181deg);
+}
+
+.MuiDrawer-root.MuiDrawer-docked.css-xc4j8j-MuiDrawer-docked .collapseIcon span {
+    display: none !important;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionAbsolute.css-w44h7q-MuiPaper-root-MuiAppBar-root .breadCrumb {
+    padding-left: 0;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.Mui-expanded.MuiAccordion-gutters.css-17xxhqv-MuiPaper-root-MuiAccordion-root {
+    margin: 0 !important;
+}
+
+
+.collapseIcon {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 99999 !important;
+}

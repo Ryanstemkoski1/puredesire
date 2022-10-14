@@ -1,0 +1,4 @@
+lambda_function/node_modules/
+lambda_new/node_modules/
+lambda_new_2/node_modules/
+client/.env

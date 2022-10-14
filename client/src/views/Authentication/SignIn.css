@@ -1,0 +1,19 @@
+.logo-top {
+    text-align: left;
+    padding: 40px 40px 0;
+}
+
+.loginBg {
+    position: relative;
+}
+    .loginBg:before {
+        content: '';
+        background: linear-gradient(to right bottom, transparent, #1A9182);
+        opacity:0.5;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        position: absolute;
+    }

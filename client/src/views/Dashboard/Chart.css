@@ -1,0 +1,89 @@
+.chartWrap {
+    box-shadow: 0 0 30px rgb(0 0 0 / 10%);
+    border-radius: 20px;
+    text-align: left;
+    overflow: hidden;
+}
+.chartWrap .chartTitle {
+    padding-top: 22px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+    .chartWrap .chartTitle, .chartWrap .chartStats {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .chartWrap .subTitle {
+        font-size: 27px;
+        font-weight: 600;
+        line-height: 1;
+        margin: 15px 0;
+        color: #000;
+    }
+
+    .chartWrap h2 {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-bottom: 0;
+        margin-top: 0;
+        color: #4C4C4C;
+    }
+
+.plus {
+    color: #02BC77;
+    font-size: 13px;
+    line-height: 1;
+    display: inline-block;
+}
+
+.recharts-tooltip-wrapper {
+    border: 0 !important;
+    outline: 0 !important;
+}
+    .recharts-tooltip-wrapper li {
+        font-weight: 600;
+        font-size: 15px;
+        margin: 0;
+        padding: 0 !important;
+    }
+
+    .recharts-tooltip-wrapper .recharts-default-tooltip {
+        border: 0 !important;
+        outline: 0 !important;
+        box-shadow: 0 0 11px rgb(0 0 0 / 15%);
+    }
+        .recharts-default-tooltip p {
+            display: none;
+        }
+
+
+.popularProduct {
+    padding: 20px 60px;
+}
+    .popularProduct .productInfo {
+        display: flex;
+        justify-content: space-between;
+    }
+        .popularProduct .productInfo label {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+        .popularProduct .productInfo span {
+            font-size: 13px;
+            color: #707070;
+        }
+
+
+@media screen and (max-width: 767px) {
+    .chartWrap {
+        margin-top: 20px !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    body .css-18u5hbw-MuiContainer-root {
+        padding-top: 20px !important;
+    }
+}

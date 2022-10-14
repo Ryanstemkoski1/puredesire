@@ -1,0 +1,12 @@
+.userName {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.userToolbar {
+    text-align: left;
+}
+
+legend {
+    color: red;
+}
