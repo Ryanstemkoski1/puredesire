@@ -93,7 +93,7 @@ router.post('/delete', (req, res) => {
 //Add Section
 router
     .route("/add-section/:id")
-    .put((req, res) => {
+    .put((req, res, next) => {
         Workbook.findByIdAndUpdate(
             req.params.id,
             {
@@ -113,7 +113,7 @@ router
         );
     })
 
-// Update Section
+// Delete Section
 router.put("/delete-section/:id",
     (req, res, next) => {
         Workbook.findByIdAndUpdate(
@@ -136,6 +136,7 @@ router.put("/delete-section/:id",
         );
     });
 
+// Update Section
 router.put("/update-section/:id",
     (req, res, next) => {
         Workbook.updateOne(
@@ -176,7 +177,7 @@ router.get("/", (req, res) => {
 });
 
 // READ Workbooks By ID
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
     Workbook.findById(req.params.id, (error, data) => {
         if (error) {
             return next(error);
@@ -191,7 +192,7 @@ router.get("/:id", (req, res) => {
 router
     .route("/update-workbook/:id")
     // Get Single Workbook
-    .get((req, res) => {
+    .get((req, res, next) => {
         Workbook.findById(
             req.params.id, (error, data) => {
                 if (error) {

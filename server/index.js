@@ -46,4 +46,5 @@ app.use("/users", getCognitoMiddleware(), usersRouter);
 app.use("/customer", require("./routers/customerRouter"));
 app.use("/user", require("./routers/userRouter"));
 app.use("/workbook", require("./routers/workbookRouter"));
+app.use("/workbookItem", require("./routers/workbookItemRouter"));
 app.use("/library", require("./routers/libraryRouter"));
