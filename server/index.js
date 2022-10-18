@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 
 app.use(express.json());
+app.use('/files', express.static('files'));
 app.use(cookieParser());
 app.use(cors({ origin: true, credentials: true }));
 

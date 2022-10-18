@@ -26,8 +26,9 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
         const formData = new FormData();
         formData.append("image", file);
         const res = await ImageUpload(formData); // upload data into server or aws or cloudinary
-        console.log(res)
-        editor.insertEmbed(editor.getSelection(), "image", "asdfsdf");
+        const url = res.imageurl
+        const server_url = process.env.REACT_APP_API_URL
+        editor.insertEmbed(editor.getSelection(), "image", `${server_url}/${url}`);
       } else {
         alert('You could only upload images.');
       }
@@ -93,78 +94,80 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
   })
 
   return (
-    <Modal
-      open={true}
-      onClose={open}
-    >
-      <Box className="modal-wrap">
-        <FormikProvider value={formik}>
-          <form onSubmit={formik.handleSubmit}>
-            <Grid container
-              spacing={3}
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <label htmlFor="file" className="label">Lesson Title*</label>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="lessonTitle"
-                  name="lessonTitle"
-                  // label="Section Title"
-                  placeholder="Type here..."
-                  value={formik.values.lessonTitle}
-                  onChange={formik.handleChange}
-                  error={formik.touched.lessonTitle && Boolean(formik.errors.lessonTitle)}
-                />
+    <React.StrictMode>
+      <Modal
+        open={true}
+        onClose={open}
+      >
+        <Box className="modal-wrap">
+          <FormikProvider value={formik}>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid container
+                spacing={3}
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center">
+                <Grid item xs={12} sm={6}>
+                  <label htmlFor="file" className="label">Lesson Title*</label>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lessonTitle"
+                    name="lessonTitle"
+                    // label="Section Title"
+                    placeholder="Type here..."
+                    value={formik.values.lessonTitle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.lessonTitle && Boolean(formik.errors.lessonTitle)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <label htmlFor="file" className="label">Lesson Description</label>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="lessonDescription"
+                    name="lessonDescription"
+                    // label="Section Description"
+                    placeholder="Type here..."
+                    value={formik.values.lessonDescription}
+                    onChange={formik.handleChange}
+                    error={formik.touched.lessonDescription && Boolean(formik.errors.lessonDescription)}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <label htmlFor="file" className="label">Lesson Description</label>
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  id="lessonDescription"
-                  name="lessonDescription"
-                  // label="Section Description"
-                  placeholder="Type here..."
-                  value={formik.values.lessonDescription}
-                  onChange={formik.handleChange}
-                  error={formik.touched.lessonDescription && Boolean(formik.errors.lessonDescription)}
-                />
+              <Grid style={{ marginTop: "20px" }}>
+                <label htmlFor="file" className="label">Lesson Content*</label>
+                <ReactQuill ref={quillRef} style={{ marginTop: "14px", borderRadius: "4px" }} value={body} modules={modules} theme="snow" onChange={setBody} placeholder="Type here..." />
               </Grid>
-            </Grid>
-            <Grid style={{ marginTop: "20px" }}>
-              <label htmlFor="file" className="label">Lesson Content*</label>
-              <ReactQuill ref={quillRef} style={{ marginTop: "14px", borderRadius: "4px" }} value={body} modules={modules} theme="snow" onChange={setBody} placeholder="Type here..." />
-            </Grid>
-            <Grid container
-              spacing={3}
-              direction="row"
-              justifyContent="flex-end"
-              style={{ marginTop: "0" }}
-              alignItems="center">
-              <Grid item align="right">
-                <Button
-                  className="btn secondary"
-                  onClick={open}
-                >
-                  Cancel
-                </Button>
+              <Grid container
+                spacing={3}
+                direction="row"
+                justifyContent="flex-end"
+                style={{ marginTop: "0" }}
+                alignItems="center">
+                <Grid item align="right">
+                  <Button
+                    className="btn secondary"
+                    onClick={open}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid item align="right">
+                  <Button
+                    className="btn primary"
+                    type="submit">
+                    Save and Exit
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item align="right">
-                <Button
-                  className="btn primary"
-                  type="submit">
-                  Save and Exit
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </FormikProvider>
-      </Box>
-    </Modal>
+            </form>
+          </FormikProvider>
+        </Box>
+      </Modal>
+    </React.StrictMode>
   )
 }
 
@@ -172,3 +175,8 @@ const ImageUpload = (file) =>
   axios
     .post(process.env.REACT_APP_API_URL + "/workbookItem/uploads", file)
     .then(res => res.data)
+
+
+const isFilenameValid = (filename) => {
+  return !(new RegExp("[<>:/\\|?*\"]|[\\0-\\31]").test(filename) || filename.length > 255);
+}

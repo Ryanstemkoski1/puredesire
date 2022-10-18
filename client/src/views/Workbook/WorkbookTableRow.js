@@ -28,7 +28,7 @@ const WorkbookTableRow = (props) => {
             <TableCell align="center">{role}</TableCell>
             <TableCell align="right">
                 <Link className="button-link"
-                             to={"/workbook/edit-workbook/" + _id}>
+                    to={"/workbook/edit-workbook/" + _id}>
                     Edit
                 </Link>
                 {/*<Button onClick={deleteWorkbook}*/}
