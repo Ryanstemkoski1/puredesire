@@ -22,11 +22,11 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
     input.onchange = async () => {
       const file = input.files[0];
       if (/^image\//.test(file.type)) {
-        console.log(file);
+        // console.log(file);
         const formData = new FormData();
         formData.append("image", file);
-        // const res = await ImageUpload(formData); // upload data into server or aws or cloudinary
-        // const url = res?.data?.url;
+        const res = await ImageUpload(formData); // upload data into server or aws or cloudinary
+        console.log(res)
         editor.insertEmbed(editor.getSelection(), "image", "asdfsdf");
       } else {
         alert('You could only upload images.');
@@ -167,3 +167,8 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
     </Modal>
   )
 }
+
+const ImageUpload = (file) =>
+  axios
+    .post(process.env.REACT_APP_API_URL + "/workbookItem/uploads", file)
+    .then(res => res.data)

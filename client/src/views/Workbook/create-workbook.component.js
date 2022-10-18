@@ -22,8 +22,8 @@ import { CreateItems, CreateSection } from "../../components/organisms/CreateWor
 
 // CreateWorkbook Component
 const CreateWorkbook = () => {
-    const [step, setStep] = useState(1)
-    const [workBookId, setWorkBookId] = useState('')
+    const [step, setStep] = useState(2)
+    const [workBookId, setWorkBookId] = useState('634664ecfb477b7714894bfe')
 
     const [errorMessage, setErrorMessage] = useState("");
 
