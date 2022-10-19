@@ -65,4 +65,51 @@ router.post("/uploads", upload.fields([{ name: 'image', maxCount: 1 },]), async 
 })
 
 
+//GET WorkbookItems
+router.get("/:id", async (req, res) => {
+  WorkbookItem.find({ sectionid: req.params.id }, (error, data, next) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  });
+})
+
+//Update WorkBookItems
+router.put("/update-workbookitem/:id", async (req, res, next) => {
+  WorkbookItem.findOneAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true
+    },
+    (error, data) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.json(data);
+        console.log("Workbook updated successfully !");
+      }
+    }
+  )
+})
+
+// Delete WorkbookItem
+router.delete("/delete-workbookitem/:id",
+  (req, res, next) => {
+    WorkbookItem.deleteOne(
+      { _id: req.params.id }, (error, data) => {
+        if (error) {
+          console.log(error)
+          return next(error);
+        } else {
+
+          res.status(200).json({
+            msg: data,
+          });
+        }
+      }
+    );
+  });
 module.exports = router;

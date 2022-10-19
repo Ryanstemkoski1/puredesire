@@ -7,10 +7,10 @@ import 'react-quill/dist/quill.snow.css'
 import { useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
 
-export default function CreateLesson({ workBookId, sectionId, open }) {
+export default function EditLessn({ item, close }) {
   const quillRef = React.useRef();
   const queryClient = useQueryClient()
-  const [body, setBody] = useState('')
+  const [body, setBody] = useState(item.content)
 
   const imageHandler = async (e) => {
     const editor = quillRef.current.getEditor();
@@ -48,7 +48,6 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
     },
   }), [])
 
-
   const validationSchema = Yup.object().shape({
     lessonTitle: Yup.string().required('Title is required'),
   });
@@ -56,12 +55,14 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
   const addWorkBookItemMutation = useMutation(
     (params) => {
       axios
-        .post(process.env.REACT_APP_API_URL + `/workbookItem/create-workbookItem/`, params)
+        .put(process.env.REACT_APP_API_URL + `/workbookItem/update-workbookitem/${item._id}`, params)
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries('sectionItems')
-        open()
+        queryClient.invalidateQueries('sectionItems')
+        setBody('')
+        close()
       },
       onError: (err) => {
         alert(err.message)
@@ -71,8 +72,8 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
 
   const formik = useFormik({
     initialValues: {
-      lessonTitle: '',
-      lessonDescription: '',
+      lessonTitle: item.title,
+      lessonDescription: item.description,
       type: 'Lesson'
     },
     enableReinitialize: true,
@@ -84,8 +85,8 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
         description: fields.lessonDescription,
         content: body,
         type: fields.type,
-        workbookid: workBookId,
-        sectionid: sectionId
+        workbookid: item.workBookId,
+        sectionid: item.sectionId
       }
       addWorkBookItemMutation.mutate(params)
 
@@ -95,10 +96,10 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
   })
 
   return (
-    <React.StrictMode>
+    <React.Fragment>
       <Modal
         open={true}
-        onClose={open}
+        onClose={close}
       >
         <Box className="modal-wrap">
           <FormikProvider value={formik}>
@@ -151,7 +152,7 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
                 <Grid item align="right">
                   <Button
                     className="btn secondary"
-                    onClick={open}
+                    onClick={close}
                   >
                     Cancel
                   </Button>
@@ -168,7 +169,7 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
           </FormikProvider>
         </Box>
       </Modal>
-    </React.StrictMode>
+    </React.Fragment>
   )
 }
 
