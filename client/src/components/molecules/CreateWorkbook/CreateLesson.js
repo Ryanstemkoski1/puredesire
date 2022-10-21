@@ -99,6 +99,7 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
       <Modal
         open={true}
         onClose={open}
+        style={{ overflow: "scroll" }}
       >
         <Box className="modal-wrap">
           <FormikProvider value={formik}>

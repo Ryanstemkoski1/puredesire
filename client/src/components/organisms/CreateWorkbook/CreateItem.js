@@ -87,7 +87,9 @@ export default function CreateItems({ workBookId }) {
       {open && (
         <Modal
           open={open}
-          onClose={() => setOpen(false)}>
+          onClose={() => setOpen(false)}
+          style={{ overflow: "scroll" }}
+        >
           <Box className="modal-wrap">
             <FormikProvider value={formik}>
               <form onSubmit={formik.handleSubmit}>
@@ -156,7 +158,8 @@ export default function CreateItems({ workBookId }) {
       {deleteItem && (
         <Modal
           open={deleteItem}
-          onClose={() => setDeleteItem(false)}>
+          onClose={() => setDeleteItem(false)}
+        >
           <Box className="delete-modal">
             <div>
               <Typography variant="h1" style={{ padding: "10px" }}>Delete</Typography>

@@ -100,6 +100,7 @@ export default function EditLessn({ item, close }) {
       <Modal
         open={true}
         onClose={close}
+        style={{ overflow: "scroll" }}
       >
         <Box className="modal-wrap">
           <FormikProvider value={formik}>

@@ -10,17 +10,18 @@ export default function ProgressBar({ file, uploading, progress, removeMedia }) 
     <Grid container
       spacing={2}
       direction="row"
-      justifyContent="space-between"
+      justifyContent="flex-start"
       alignItems="center"
       style={uploading ? { opacity: "0.7" } : { opacity: "1" }}
       className="progressbar-wrapper">
-
-      {!!file.length && file[0].type === "application/pdf" ? (
-        <PictureAsPdfIcon />
-      ) : !!file.length && (
-        <ImageOutlined />
-      )}
-      <div style={{ width: "80%" }}>
+      <Grid item xs={1} style={{ padding: "0" }}>
+        {!!file.length && file[0].type === "application/pdf" ? (
+          <PictureAsPdfIcon />
+        ) : !!file.length && (
+          <ImageOutlined />
+        )}
+      </Grid>
+      <Grid item xs={10} style={{ padding: "0" }}>
         {!!file.length && (
           <Typography
             style={{
@@ -37,12 +38,14 @@ export default function ProgressBar({ file, uploading, progress, removeMedia }) 
         {uploading && (
           <LinearProgress variant="determinate" value={progress} />
         )}
-      </div>
-      {!!file.length && (
-        <Button onClick={() => removeMedia(file[0].path)}>
-          <AddIcon style={{ transform: "rotate(45deg)", cursor: "pointer" }} />
-        </Button>
-      )}
+      </Grid>
+      <Grid item xs={1} style={{ padding: "0" }}>
+        {!!file.length && (
+          <Button onClick={() => removeMedia(file[0].path)}>
+            <AddIcon style={{ transform: "rotate(45deg)", cursor: "pointer" }} />
+          </Button>
+        )}
+      </Grid>
     </Grid>
   )
 }

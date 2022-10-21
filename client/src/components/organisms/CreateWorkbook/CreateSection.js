@@ -48,7 +48,7 @@ export default function CreateSection({ prevStep, workBookId }) {
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-     const params = {
+      const params = {
         sections: [
           {
             title: values.title,
@@ -57,7 +57,7 @@ export default function CreateSection({ prevStep, workBookId }) {
             s_pdf_download: values.s_pdf_download,
           }
         ]
-      } 
+      }
       addSectionMutation.mutate(params)
       resetForm()
       setHeaderImage([])
@@ -193,6 +193,7 @@ export default function CreateSection({ prevStep, workBookId }) {
         <Modal
           open={open}
           onClose={closeModal}
+          style={{ overflow: "scroll" }}
         >
           <Box className="modal-wrap">
             <FormikProvider value={formik}>

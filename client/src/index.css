@@ -128,6 +128,13 @@ ul.invoices {
     outline:none;
     padding:30px;
     border-radius: 9px;
+    height:auto;
+    max-height:95%;
+    overflow-y:scroll;
+}
+
+.modal-wrap::-webkit-scrollbar {
+    width:0;
 }
 
 span.MuiLinearProgress-bar {

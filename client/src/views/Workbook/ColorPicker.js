@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {useTranslation} from "react-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 // import {Fade, Modal, Grid, Button} from "@material-ui/core";
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
 
-import {ChromePicker} from "react-color";
+import { ChromePicker } from "react-color";
 
-import {makeStyles} from "@mui/material/styles";
+import { makeStyles } from "@mui/material/styles";
 const useStyles = makeStyles(theme => ({
     modal: {
         display: "flex",
@@ -28,8 +28,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const ColorPicker = ({label, onChange, currentColor}) => {
-    const {t} = useTranslation();
+export const ColorPicker = ({ label, onChange, currentColor }) => {
+    const { t } = useTranslation();
     const classes = useStyles();
     const [color, setColor] = useState(currentColor || "#333");
     const [showPicker, setShowPicker] = useState(false);
@@ -39,7 +39,7 @@ export const ColorPicker = ({label, onChange, currentColor}) => {
 
     return (
         <div
-            style={{display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", padding: 10}}>
+            style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", padding: 10 }}>
             <label>{label}</label>
             <div
                 style={{

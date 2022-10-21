@@ -3,5 +3,5 @@ import ProgressBar from "./progressBar";
 
 export {
   Divider,
-  ProgressBar
+  ProgressBar,
 }

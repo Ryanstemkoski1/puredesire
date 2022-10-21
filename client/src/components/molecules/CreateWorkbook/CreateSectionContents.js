@@ -5,11 +5,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import CreateAssessment from './CreateAssessment';
+// import CreateAssessment from './CreateAssessment';
 import CreateLesson from './CreateLesson';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import EditLessn from './EditLesson';
+import CreateAssessment from './CreateAssessment/CreateAssessment';
 
 export default function CreateSectionContents({ workBookId, sectionId }) {
   const queryClient = useQueryClient()
@@ -54,7 +55,9 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
       {deleteItem && (
         <Modal
           open={deleteItem}
-          onClose={() => setDeleteItem(false)}>
+          onClose={() => setDeleteItem(false)}
+          style={{ overflow: "scroll" }}
+          >
           <Box className="delete-modal">
             <div>
               <Typography variant="h1" style={{ padding: "10px" }}>Delete</Typography>
