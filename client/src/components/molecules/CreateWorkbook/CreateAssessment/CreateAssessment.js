@@ -12,19 +12,19 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
     if (!showKey) setShowKey(true)
     switch (type) {
       case "text":
-        setElements([...elements, 'text'])
+        setElements([...elements, { type: "text", options: [] }])
         break
       case "textarea":
-        setElements([...elements, 'textarea'])
+        setElements([...elements, { type: "textarea", options: [] }])
         break
       case "rating":
-        setElements([...elements, 'rating'])
+        setElements([...elements, { type: "rating", options: [] }])
         break
       case "checkbox":
-        setElements([...elements, 'checkbox'])
+        setElements([...elements, { type: "checkbox", options: [] }])
         break
       case "radio":
-        setElements([...elements, 'radio'])
+        setElements([...elements, { type: "radio", options: [] }])
         break
     }
   }
