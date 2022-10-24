@@ -233,3 +233,16 @@ span.MuiLinearProgress-bar {
     margin:auto;
     padding-left:1px;
 }
+
+.e_icon_wrapper {
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background: #FFA659;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    margin:auto;
+    margin-top:13px;
+}

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { Grid, TextField } from '@mui/material'
 
-export default function AssessmentContent({ element, removeItem }) {
+export default function AssessmentContent1({ item, index, removeItem, formik }) {
   const [title, setTitle] = useState("")
 
   useEffect(() => {
-    switch (element.type) {
+    switch (item.type) {
       case "text":
         setTitle("Text*")
         break
@@ -16,16 +16,10 @@ export default function AssessmentContent({ element, removeItem }) {
       case "rating":
         setTitle("Rating (1-10)*")
         break
-      case "checkbox":
-        setTitle("Checkboxes*")
-        break
-      case "radio":
-        setTitle("Radio Buttons*")
-        break
       default:
         break
     }
-  }, [element])
+  }, [item])
 
   return (
     <Grid container
@@ -44,7 +38,7 @@ export default function AssessmentContent({ element, removeItem }) {
           alignItems="center">
           <Grid item
             xs={12}
-            sm={title === "Checkboxes*" ? 12 : title === "Radio Buttons*" ? 12 : 10}
+            sm={10}
             align="left"
             style={{ display: "flex", flexDirection: "column" }}
           >
@@ -52,25 +46,26 @@ export default function AssessmentContent({ element, removeItem }) {
             <TextField
               margin="normal"
               required
-              id="lessonTitle"
-              name="lessonTitle"
+              id={`${item.type}${index}`}
+              // value={formik.values[`${item.type}${index}`]}
+              name={`${item.type}${index}`}
               placeholder="Type here..."
+              onChange={formik.handleChange}
+            />
+
+          </Grid>
+          <Grid item xs={12} sm={2} align="left" style={{ display: "flex", flexDirection: "column" }}>
+            <label>Value (for scoring)</label>
+            <TextField
+              type="number"
+              margin="normal"
+              required
+              id={`points${index}`}
+              name={`points${index}`}
+              placeholder="1"
+              onChange={formik.handleChange}
             />
           </Grid>
-          {
-            title === "Text*" && (
-              <Grid item xs={12} sm={2} align="left" style={{ display: "flex", flexDirection: "column" }}>
-                <label>Value (for scoring)</label>
-                <TextField
-                  margin="normal"
-                  required
-                  id="lessonTitle"
-                  name="lessonTitle"
-                  placeholder="Type here..."
-                />
-              </Grid>
-            )
-          }
         </Grid>
       </Grid>
       <Grid item xs={1} sm={0.5} align="right">

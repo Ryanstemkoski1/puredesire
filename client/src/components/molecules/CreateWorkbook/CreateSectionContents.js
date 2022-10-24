@@ -11,6 +11,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import EditLessn from './EditLesson';
 import CreateAssessment from './CreateAssessment/CreateAssessment';
+import EditAssessment from './EditAssessment';
 
 export default function CreateSectionContents({ workBookId, sectionId }) {
   const queryClient = useQueryClient()
@@ -57,7 +58,7 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
           open={deleteItem}
           onClose={() => setDeleteItem(false)}
           style={{ overflow: "scroll" }}
-          >
+        >
           <Box className="delete-modal">
             <div>
               <Typography variant="h1" style={{ padding: "10px" }}>Delete</Typography>
@@ -100,7 +101,7 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
       {open && (
         activeItem.type === "Lesson" ?
           <EditLessn item={activeItem} close={() => setOpen(false)} /> :
-          ""
+          <EditAssessment item={activeItem} close={() => setOpen(false)} />
       )}
 
       {!!sectionItems.length && sectionItems.map((item, index) => (
