@@ -296,14 +296,27 @@ export default function CreateSection({ prevStep, workBookId }) {
       >
         <AddCircleIcon className="position-center" style={{ width: '50px', height: '50px' }} />
       </Box>
-      <div style={{ padding: '20px 0' }}>
-        <Button
-          className="btn primary"
-          onClick={prevStep}
-        >
-          Back
-        </Button>
-      </div>
+      <Grid container
+        spacing={3}
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center">
+        <Grid item>
+          <Button
+            className="btn primary"
+            onClick={prevStep}
+          >
+            Back
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            className="btn primary"
+          >
+            Publish
+          </Button>
+        </Grid>
+      </Grid>
     </React.Fragment>
   )
 }

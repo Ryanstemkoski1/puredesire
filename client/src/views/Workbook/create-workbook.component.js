@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from 'axios';
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -10,21 +9,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import * as Yup from 'yup';
 import { useFormik, Field, FormikProvider } from 'formik';
 import Paper from "@mui/material/Paper";
-
 import { useDropzone } from "react-dropzone";
-
 import Thumb from "./Thumb";
-
 import ColorPicker from 'mui-color-picker'
 import { ColorPickerField } from 'mui-color-picker';
 import { Divider } from "../../components/atoms";
 import { CreateItems, CreateSection } from "../../components/organisms/CreateWorkbook";
 
-// CreateWorkbook Component
 const CreateWorkbook = () => {
     const [step, setStep] = useState(2)
-    const [workBookId, setWorkBookId] = useState('634664ecfb477b7714894bfe')
-
+    const [workBookId, setWorkBookId] = useState('')
     const [errorMessage, setErrorMessage] = useState("");
 
     const validationSchema = Yup.object().shape({
@@ -368,12 +362,6 @@ const CreateWorkbook = () => {
                         <CreateSection prevStep={prevStep} workBookId={workBookId} />
                     </>
                 )
-            case 3:
-                return (
-                    <>
-                        <label htmlFor="file" className="label">Content</label>
-                    </>
-                )
         }
 
     }
@@ -391,5 +379,4 @@ const CreateWorkbook = () => {
     );
 }
 
-// Export CreateWorkbook Component
 export default CreateWorkbook
