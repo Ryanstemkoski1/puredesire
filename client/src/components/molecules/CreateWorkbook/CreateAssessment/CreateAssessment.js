@@ -88,7 +88,6 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
       assessmentTitle: "",
       requiredScore: "",
       type: 'Assessment',
-      requiredScore: "",
     },
     enableReinitialize: true,
     validationSchema: "",
@@ -101,7 +100,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
             optionArr.push(
               {
                 title: fields[`options${index}${j}`],
-                points: fields[`points${index}${j}`]
+                points: parseInt(fields[`points${index}${j}`])
               }
             )
           })
@@ -118,7 +117,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
             {
               title: fields[`${item.type}${index}`],
               type: item.type,
-              points: fields[`points${index}`]
+              points: parseInt(fields[`points${index}`])
             }
           )
         }
@@ -127,12 +126,12 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
       const params = {
         title: fields.assessmentTitle,
         type: fields.type,
-        required_score: fields.typerequiredScore,
+        required_score: parseInt(fields.requiredScore),
         workbookid: workBookId,
         sectionid: sectionId,
         questions: quesArray
       }
-
+      console.log(params)
       addWorkBookItemMutation.mutate(params)
       resetForm()
     }

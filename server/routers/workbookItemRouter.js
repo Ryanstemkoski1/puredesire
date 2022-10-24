@@ -35,14 +35,7 @@ router.post("/create-workbookItem", async (req, res) => {
   try {
     const { title, type, description, content, workbookid, sectionid } = req.body
 
-    const itemContent = new WorkbookItem({
-      title,
-      type,
-      description,
-      content,
-      workbookid,
-      sectionid
-    });
+    const itemContent = new WorkbookItem(req.body);
     const result = await itemContent.save();
 
     res.send({ success: 'WorkbookItem created successfully.' });

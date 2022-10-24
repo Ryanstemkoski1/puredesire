@@ -60,7 +60,6 @@ export default function EditLessn({ item, close }) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('sectionItems')
-        queryClient.invalidateQueries('sectionItems')
         setBody('')
         close()
       },
