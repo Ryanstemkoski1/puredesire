@@ -11,7 +11,6 @@ import axios from 'axios';
 
 export default function CreateAssessment({ workBookId, sectionId, open }) {
   const queryClient = useQueryClient()
-  const [showKey, setShowKey] = useState(false)
   const [elements, setElements] = useState([])
 
   const addWorkBookItemMutation = useMutation(
@@ -32,8 +31,6 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
 
 
   function addItem(type) {
-    if (!showKey) setShowKey(true)
-
     const key = Date.now();
 
     switch (type) {
@@ -138,6 +135,8 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
   })
 
   return (
+
+    
     <Modal
       open={true}
       onClose={open}
@@ -210,47 +209,45 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
                 </Grid>
               </Grid>
             </Box>
-            {showKey && (
-              <div>
-                <Divider style={{ margin: "20px 0" }} />
-                <Grid container
-                  spacing={3}
-                  direction="row"
-                  justifyContent="space-between"
-                  style={{ marginTop: "0" }}
-                  alignItems="center">
-                  <Grid item xs={12} sm={8} align="left" style={{ display: "flex", flexDirection: "column" }}>
-                    <label>Title</label>
-                    <TextField
-                      margin="normal"
-                      required
-                      id="assessmentTitle"
-                      name="assessmentTitle"
-                      // label="Section Title"
-                      placeholder="Type here..."
-                      value={formik.values.assessmentTitle}
-                      onChange={formik.handleChange}
-                      error={formik.touched.assessmentTitle && Boolean(formik.errors.assessmentTitle)}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="left" style={{ display: "flex", flexDirection: "column" }}>
-                    <label>Minimum score needed to pass</label>
-                    <TextField
-                      type="number"
-                      margin="normal"
-                      required
-                      id="requiredScore"
-                      name="requiredScore"
-                      // label="Section Title"
-                      placeholder="1"
-                      value={formik.values.requiredScore}
-                      onChange={formik.handleChange}
-                      error={formik.touched.requiredScore && Boolean(formik.errors.requiredScore)}
-                    />
-                  </Grid>
+            <div>
+              <Divider style={{ margin: "20px 0" }} />
+              <Grid container
+                spacing={3}
+                direction="row"
+                justifyContent="space-between"
+                style={{ marginTop: "0" }}
+                alignItems="center">
+                <Grid item xs={12} sm={8} align="left" style={{ display: "flex", flexDirection: "column" }}>
+                  <label>Assessment Title*</label>
+                  <TextField
+                    margin="normal"
+                    required
+                    id="assessmentTitle"
+                    name="assessmentTitle"
+                    // label="Section Title"
+                    placeholder="Type here..."
+                    value={formik.values.assessmentTitle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.assessmentTitle && Boolean(formik.errors.assessmentTitle)}
+                  />
                 </Grid>
-              </div>
-            )}
+                <Grid item xs={12} sm={4} align="left" style={{ display: "flex", flexDirection: "column" }}>
+                  <label>Minimum score needed to pass*</label>
+                  <TextField
+                    type="number"
+                    margin="normal"
+                    required
+                    id="requiredScore"
+                    name="requiredScore"
+                    // label="Section Title"
+                    placeholder="1"
+                    value={formik.values.requiredScore}
+                    onChange={formik.handleChange}
+                    error={formik.touched.requiredScore && Boolean(formik.errors.requiredScore)}
+                  />
+                </Grid>
+              </Grid>
+            </div>
             <Grid container
               spacing={3}
               direction="row"

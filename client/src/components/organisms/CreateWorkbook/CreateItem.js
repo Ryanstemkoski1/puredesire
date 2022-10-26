@@ -251,7 +251,8 @@ export default function CreateItems({ workBookId }) {
             </Grid>
           </Grid>
           <Divider style={{ padding: "8px 0" }} />
-          <CreateSectionContents workBookId={workBookId} sectionId={item._id} />
+          <CreateSectionContents workBookId={workBookId} sectionId='6356c6268de7390c5e2f2ef7' />
+          {/* <CreateSectionContents workBookId={workBookId} sectionId={item._id} /> */}
         </Box>
       ))}
     </>

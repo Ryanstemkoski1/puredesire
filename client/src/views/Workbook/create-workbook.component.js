@@ -17,7 +17,7 @@ import { Divider } from "../../components/atoms";
 import { CreateItems, CreateSection } from "../../components/organisms/CreateWorkbook";
 
 const CreateWorkbook = () => {
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(1)
     const [workBookId, setWorkBookId] = useState('')
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -66,10 +66,10 @@ const CreateWorkbook = () => {
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
-                }
+                },
+                maxContentLength: 10000000,
+                maxBodyLength: 10000000,
             };
-
-
 
             axios
                 .post(process.env.REACT_APP_API_URL + "/workbook/create-workbook", formData, config)
