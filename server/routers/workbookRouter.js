@@ -90,7 +90,7 @@ router.post('/delete', (req, res) => {
     }
 })
 
-//Add Section
+//Update Section
 router
     .route("/add-section/:id")
     .put((req, res, next) => {
@@ -218,6 +218,7 @@ router
                     return next(error);
                 } else {
                     res.json(data);
+                    console.log("here")
                     console.log("Workbook updated successfully !");
                 }
             }

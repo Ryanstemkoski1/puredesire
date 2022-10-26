@@ -15,7 +15,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
 
   const addWorkBookItemMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .post(process.env.REACT_APP_API_URL + `/workbookItem/create-workbookItem/`, params)
     },
     {
@@ -28,7 +28,6 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
       }
     }
   )
-
 
   function addItem(type) {
     const key = Date.now();
@@ -83,7 +82,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
   const formik = useFormik({
     initialValues: {
       assessmentTitle: "",
-      requiredScore: "",
+      requiredScore: 1,
       type: 'Assessment',
     },
     enableReinitialize: true,
@@ -135,8 +134,6 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
   })
 
   return (
-
-    
     <Modal
       open={true}
       onClose={open}

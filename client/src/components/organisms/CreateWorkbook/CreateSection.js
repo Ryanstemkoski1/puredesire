@@ -24,12 +24,12 @@ export default function CreateSection({ prevStep, workBookId }) {
 
   const addSectionMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .put(process.env.REACT_APP_API_URL + `/workbook/add-section/${workBookId}`, params)
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('bookSection')
+        queryClient.invalidateQueries(["bookSection"])
         setOpen(false)
       },
       onError: (err) => {
@@ -121,6 +121,8 @@ export default function CreateSection({ prevStep, workBookId }) {
           headers: {
             'content-type': 'multipart/form-data;boundary=MyBoundary'
           },
+          maxContentLength: 10000000,
+          maxBodyLength: 10000000,
           onUploadProgress: (data) => {
             setProgress(Math.round((100 * data.loaded) / data.total));
           }

@@ -27,12 +27,12 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
 
   const removeItemMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .delete(process.env.REACT_APP_API_URL + `/workbookItem/delete-workbookitem/${params._id}`)
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('sectionItems')
+        queryClient.invalidateQueries(["sectionItems"])
         setDeleteItem(false)
         setActiveItem({})
       },

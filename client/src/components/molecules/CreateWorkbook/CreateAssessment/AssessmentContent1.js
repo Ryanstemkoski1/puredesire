@@ -47,7 +47,7 @@ export default function AssessmentContent1({ item, index, removeItem, formik }) 
               margin="normal"
               required
               id={`${item.type}${index}`}
-              value={formik.values[`${item.type}${index}`]}
+              value={formik.values[`${item.type}${index}`] ? formik.values[`${item.type}${index}`] : ""}
               name={`${item.type}${index}`}
               placeholder="Type here..."
               onChange={formik.handleChange}
@@ -61,7 +61,7 @@ export default function AssessmentContent1({ item, index, removeItem, formik }) 
               margin="normal"
               required
               id={`points${index}`}
-              value={formik.values[`points${index}`]}
+              value={formik.values[`points${index}`] ? formik.values[`points${index}`] : 1}
               name={`points${index}`}
               placeholder="1"
               onChange={formik.handleChange}

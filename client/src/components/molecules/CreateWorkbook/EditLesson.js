@@ -52,9 +52,9 @@ export default function EditLessn({ item, close }) {
     lessonTitle: Yup.string().required('Title is required'),
   });
 
-  const addWorkBookItemMutation = useMutation(
+  const updateWorkBookItemMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .put(process.env.REACT_APP_API_URL + `/workbookItem/update-workbookitem/${item._id}`, params)
     },
     {
@@ -84,10 +84,8 @@ export default function EditLessn({ item, close }) {
         description: fields.lessonDescription,
         content: body,
         type: fields.type,
-        workbookid: item.workBookId,
-        sectionid: item.sectionId
       }
-      addWorkBookItemMutation.mutate(params)
+      updateWorkBookItemMutation.mutate(params)
 
       resetForm()
       setBody('')

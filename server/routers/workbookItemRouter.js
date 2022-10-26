@@ -71,12 +71,9 @@ router.get("/:id", async (req, res) => {
 
 //Update WorkBookItems
 router.put("/update-workbookitem/:id", async (req, res, next) => {
-  WorkbookItem.findOneAndUpdate(
+  WorkbookItem.findByIdAndUpdate(
     req.params.id,
     req.body,
-    {
-      new: true
-    },
     (error, data) => {
       if (error) {
         return next(error);

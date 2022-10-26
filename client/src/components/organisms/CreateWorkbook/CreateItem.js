@@ -19,7 +19,7 @@ export default function CreateItems({ workBookId }) {
 
   const removeSectionMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .put(process.env.REACT_APP_API_URL + `/workbook/delete-section/${workBookId}`, params)
     },
     {
@@ -40,7 +40,7 @@ export default function CreateItems({ workBookId }) {
 
   const addSectionMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .put(process.env.REACT_APP_API_URL + `/workbook/update-section/${workBookId}`, params)
     },
     {
@@ -63,13 +63,13 @@ export default function CreateItems({ workBookId }) {
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (fields, { resetForm }) => {
       const params = {
         sections: [
           {
             _id: activeSection._id,
-            title: values.title,
-            description: values.description
+            title: fields.title,
+            description: fields.description
           }
         ]
       }
@@ -251,8 +251,7 @@ export default function CreateItems({ workBookId }) {
             </Grid>
           </Grid>
           <Divider style={{ padding: "8px 0" }} />
-          <CreateSectionContents workBookId={workBookId} sectionId='6356c6268de7390c5e2f2ef7' />
-          {/* <CreateSectionContents workBookId={workBookId} sectionId={item._id} /> */}
+          <CreateSectionContents workBookId={workBookId} sectionId={item._id} />
         </Box>
       ))}
     </>

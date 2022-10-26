@@ -56,9 +56,9 @@ export default function EditAssessment({ item, close }) {
     return initValues
   })
 
-  const addWorkBookItemMutation = useMutation(
+  const updateWorkBookItemMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .put(process.env.REACT_APP_API_URL + `/workbookItem/update-workbookitem/${item._id}`, params)
     },
     {
@@ -161,12 +161,11 @@ export default function EditAssessment({ item, close }) {
       const params = {
         title: fields.assessmentTitle,
         type: fields.type,
-        required_score: fields.typerequiredScore,
+        required_score: fields.requiredScore,
         questions: quesArray
       }
-      console.log(params)
 
-      addWorkBookItemMutation.mutate(params)
+      updateWorkBookItemMutation.mutate(params)
       resetForm()
     }
   })

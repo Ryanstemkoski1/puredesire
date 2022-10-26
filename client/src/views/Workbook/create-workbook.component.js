@@ -15,10 +15,11 @@ import ColorPicker from 'mui-color-picker'
 import { ColorPickerField } from 'mui-color-picker';
 import { Divider } from "../../components/atoms";
 import { CreateItems, CreateSection } from "../../components/organisms/CreateWorkbook";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const CreateWorkbook = () => {
-    const [step, setStep] = useState(1)
-    const [workBookId, setWorkBookId] = useState('')
+    const [step, setStep] = useState(2)
+    const [workBookId, setWorkBookId] = useState('6358d667cf6e6941dc10507f')
     const [errorMessage, setErrorMessage] = useState("");
 
     const validationSchema = Yup.object().shape({
@@ -215,7 +216,15 @@ const CreateWorkbook = () => {
                                         <Typography>Recommended dimensions: 1200x1200</Typography>
                                         {formik.values.file_cover &&
                                             formik.values.file_cover.map((file, i) => (
-                                                <Thumb key={i} file={file} />
+                                                <div key={i} style={{ position: "relative", width: "fit-content" }}>
+                                                    < Thumb file={file} />
+                                                    <DeleteForeverIcon
+                                                        style={{ cursor: "pointer", position: "absolute" }}
+                                                        onClick={() => {
+                                                            formik.setFieldValue("file_cover", []);
+                                                        }}
+                                                    />
+                                                </div>
                                             ))}
                                     </div>
                                 </Grid>
@@ -228,7 +237,15 @@ const CreateWorkbook = () => {
                                         <Typography>Recommended dimensions: 1200x500</Typography>
                                         {formik.values.file_header &&
                                             formik.values.file_header.map((file, i) => (
-                                                <Thumb key={i} file={file} />
+                                                <div key={i} style={{ position: "relative", width: "fit-content" }}>
+                                                    < Thumb file={file} />
+                                                    <DeleteForeverIcon
+                                                        style={{ cursor: "pointer", position: "absolute" }}
+                                                        onClick={() => {
+                                                            formik.setFieldValue("file_header", []);
+                                                        }}
+                                                    />
+                                                </div>
                                             ))}
 
                                     </div>
@@ -352,7 +369,7 @@ const CreateWorkbook = () => {
                                 </Grid>
                             </Grid>
                         </form>
-                    </FormikProvider>
+                    </FormikProvider >
                 )
             case 2:
                 return (

@@ -55,7 +55,7 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
 
   const addWorkBookItemMutation = useMutation(
     (params) => {
-      axios
+      return axios
         .post(process.env.REACT_APP_API_URL + `/workbookItem/create-workbookItem/`, params)
     },
     {
@@ -175,5 +175,8 @@ export default function CreateLesson({ workBookId, sectionId, open }) {
 
 const ImageUpload = (file) =>
   axios
-    .post(process.env.REACT_APP_API_URL + "/workbookItem/uploads", file)
+    .post(process.env.REACT_APP_API_URL + "/workbookItem/uploads", file, {
+      maxContentLength: 10000000,
+      maxBodyLength: 10000000,
+    })
     .then(res => res.data)
