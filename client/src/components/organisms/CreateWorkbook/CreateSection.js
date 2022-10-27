@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useMutation, useQueryClient } from "react-query"
 import { ProgressBar } from "../../atoms";
 
-export default function CreateSection({ prevStep, workBookId }) {
+export default function CreateSection({ workBookId }) {
   const queryClient = useQueryClient()
 
   const [open, setOpen] = useState(false)
@@ -306,9 +306,8 @@ export default function CreateSection({ prevStep, workBookId }) {
         <Grid item>
           <Button
             className="btn primary"
-            onClick={prevStep}
           >
-            Back
+            Workbook Settings
           </Button>
         </Grid>
         <Grid item>

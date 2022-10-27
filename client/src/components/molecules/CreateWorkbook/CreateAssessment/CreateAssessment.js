@@ -127,7 +127,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
         sectionid: sectionId,
         questions: quesArray
       }
-      console.log(params)
+
       addWorkBookItemMutation.mutate(params)
       resetForm()
     }
