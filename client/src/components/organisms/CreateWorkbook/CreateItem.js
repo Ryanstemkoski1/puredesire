@@ -9,12 +9,10 @@ import { FormikProvider, useFormik } from "formik";
 import * as Yup from 'yup';
 import CreateSectionContents from "../../molecules/CreateWorkbook/CreateSectionContents";
 
-export default function CreateItems({ workBookId }) {
+export default function CreateItems({ item, workBookId }) {
   const queryClient = useQueryClient()
 
-  const sectionQuery = useQuery(["bookSection", workBookId], (params) => fetchWorkBook(params.queryKey[1]))
   const [open, setOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState({})
   const [deleteItem, setDeleteItem] = useState(false)
 
   const removeSectionMutation = useMutation(
@@ -26,7 +24,6 @@ export default function CreateItems({ workBookId }) {
       onSuccess: () => {
         queryClient.invalidateQueries('bookSection')
         setDeleteItem(false)
-        setActiveSection({})
       },
       onError: (err) => {
         console.log(err)
@@ -56,8 +53,8 @@ export default function CreateItems({ workBookId }) {
 
   const formik = useFormik({
     initialValues: {
-      title: activeSection.title || "",
-      description: activeSection.description || "",
+      title: item.title || "",
+      description: item.description || "",
       s_header_image: '',
       s_pdf_download: ''
     },
@@ -67,7 +64,7 @@ export default function CreateItems({ workBookId }) {
       const params = {
         sections: [
           {
-            _id: activeSection._id,
+            _id: item._id,
             title: fields.title,
             description: fields.description
           }
@@ -77,10 +74,6 @@ export default function CreateItems({ workBookId }) {
       resetForm()
     }
   })
-
-  if (sectionQuery.isLoading || sectionQuery.isError) return null
-
-  const sectionData = sectionQuery.data?.sections || []
 
   return (
     <>
@@ -173,7 +166,6 @@ export default function CreateItems({ workBookId }) {
                     className="btn secondary"
                     onClick={() => {
                       setDeleteItem(false)
-                      setActiveSection({})
                     }}
                   >
                     <b>
@@ -185,7 +177,7 @@ export default function CreateItems({ workBookId }) {
                   <Button
                     className="btn third"
                     onClick={() => {
-                      removeSectionMutation.mutate({ _id: activeSection._id })
+                      removeSectionMutation.mutate({ _id: item._id })
                     }}
                   >
                     <b>
@@ -199,67 +191,57 @@ export default function CreateItems({ workBookId }) {
         </Modal>
       )}
 
-      {sectionData.map((item, index) => (
-        <Box key={index} className="" sx={{ padding: "24px", margin: "20px 0", border: "2px solid #1C988B", borderRadius: "4px" }}>
-          <Grid container
-            spacing={3}
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center">
-            <Grid item>
-              <Grid container
-                spacing={3}
-                direction="row"
-                justifyContent=""
-                alignItems="center"
-              >
-                <Grid item>
-                  <label className="label">Section</label>
-                </Grid>
-                <Grid item
-                  style={{ display: "flex" }}
-                >
-                  <MenuIcon style={{ fontSize: "32px" }} />
-                </Grid>
+      <Box className="" sx={{ padding: "24px", margin: "20px 0", border: "2px solid #1C988B", borderRadius: "4px" }}>
+        <Grid container
+          spacing={3}
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center">
+          <Grid item>
+            <Grid container
+              spacing={3}
+              direction="row"
+              justifyContent=""
+              alignItems="center"
+            >
+              <Grid item>
+                <label className="label">Section</label>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container
-                spacing={3}
-                alignItems="center">
-                <Grid item
-                  style={{ display: "flex", cursor: "pointer " }}
-                  onClick={() => {
-                    setOpen(true)
-                    setActiveSection(item)
-                  }}
-                >
-                  <ModeEditOutlineOutlinedIcon />
-                  <span className="label">Edit</span>
-                </Grid>
-                <Grid item
-                  style={{ display: "flex", cursor: "pointer " }}
-                  onClick={() => {
-                    setDeleteItem(true)
-                    setActiveSection(item)
-                  }}
-                >
-                  <DeleteOutlineOutlinedIcon style={{ fill: 'red' }} />
-                  <span className="label">Delete</span>
-                </Grid>
+              <Grid item
+                style={{ display: "flex" }}
+              >
+                <MenuIcon style={{ fontSize: "32px" }} />
               </Grid>
             </Grid>
           </Grid>
-          <Divider style={{ padding: "8px 0" }} />
-          <CreateSectionContents workBookId={workBookId} sectionId={item._id} />
-        </Box>
-      ))}
+          <Grid item>
+            <Grid container
+              spacing={3}
+              alignItems="center">
+              <Grid item
+                style={{ display: "flex", cursor: "pointer " }}
+                onClick={() => {
+                  setOpen(true)
+                }}
+              >
+                <ModeEditOutlineOutlinedIcon />
+                <span className="label">Edit</span>
+              </Grid>
+              <Grid item
+                style={{ display: "flex", cursor: "pointer " }}
+                onClick={() => {
+                  setDeleteItem(true)
+                }}
+              >
+                <DeleteOutlineOutlinedIcon style={{ fill: 'red' }} />
+                <span className="label">Delete</span>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Divider style={{ padding: "8px 0" }} />
+        <CreateSectionContents workBookId={workBookId} sectionId={item._id} />
+      </Box>
     </>
   )
-}
-
-const fetchWorkBook = (params) => {
-  return axios
-    .get(process.env.REACT_APP_API_URL + `/workbook/${params}`)
-    .then((response) => response.data)
 }

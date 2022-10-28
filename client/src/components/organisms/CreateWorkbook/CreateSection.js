@@ -7,11 +7,13 @@ import { useDropzone } from "react-dropzone";
 import axios from 'axios';
 import { useMutation, useQueryClient } from "react-query"
 import { ProgressBar } from "../../atoms";
+import EditWorkbook from "./EditWorkBook";
 
-export default function CreateSection({ workBookId }) {
+export default function CreateSection({ workBookId, workBook }) {
   const queryClient = useQueryClient()
 
   const [open, setOpen] = useState(false)
+  const [editWorkbook, setEditWorkbook] = useState(false)
   const [progress, setProgress] = useState(0);
   const [headerImage, setHeaderImage] = useState([])
   const [uploadingImg, setUploadingImg] = useState(false)
@@ -286,6 +288,9 @@ export default function CreateSection({ workBookId }) {
           </Box>
         </Modal>
       )}
+      {editWorkbook && (
+        <EditWorkbook close={() => setEditWorkbook(false)} workBook={workBook} />
+      )}
       <Box
         className="dashed-border"
         sx={{
@@ -306,6 +311,7 @@ export default function CreateSection({ workBookId }) {
         <Grid item>
           <Button
             className="btn primary"
+            onClick={() => setEditWorkbook(true)}
           >
             Workbook Settings
           </Button>

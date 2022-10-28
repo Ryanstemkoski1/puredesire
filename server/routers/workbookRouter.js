@@ -204,7 +204,23 @@ router
     })
 
     // Update Workbook Data
-    .put((req, res, next) => {
+    .put(upload.fields([{ name: 'file_cover', maxCount: 1 }, { name: 'file_header', maxCount: 1 }]), async (req, res, next) => {
+        if (req.files['file_cover']) {
+            req.body.file_cover = req.files['file_cover'][0].path;
+        }
+
+        if (req.body.file_cover === "undefined" || req.body.file_cover === null) {
+            req.body.file_cover = ""
+        }
+
+        if (req.files['file_header']) {
+            req.body.file_header = req.files['file_header'][0].path;
+        }
+
+        if (req.body.file_header === "undefined" || req.body.file_header === null) {
+            req.body.file_header = ""
+        }
+
         Workbook.findByIdAndUpdate(
             req.params.id,
             {
@@ -218,7 +234,6 @@ router
                     return next(error);
                 } else {
                     res.json(data);
-                    console.log("here")
                     console.log("Workbook updated successfully !");
                 }
             }

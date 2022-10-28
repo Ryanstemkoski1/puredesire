@@ -1,0 +1,387 @@
+import React, { useState } from "react"
+import { Box, Button, FormControlLabel, Grid, Modal, Switch, TextField, Typography } from "@mui/material"
+import * as Yup from 'yup';
+import { useFormik, Field, FormikProvider } from 'formik';
+import { useDropzone } from "react-dropzone";
+import ColorPicker from 'mui-color-picker'
+import { ColorPickerField } from 'mui-color-picker';
+import axios from 'axios';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Thumb from "../../../views/Workbook/Thumb";
+import { useMutation, useQueryClient } from "react-query";
+
+export default function EditWorkbook({ close, workBook }) {
+  const queryClient = useQueryClient()
+
+  const [coverImg, setCoverImg] = useState(workBook.file_cover ? true : false)
+  const [headerImg, setHeaderImg] = useState(workBook.file_header ? true : false)
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required('Title is required'),
+  });
+
+  const workBookUpdateMutation = useMutation(
+    (params) => {
+      return axios
+        .put(process.env.REACT_APP_API_URL + "/workbook/update-workbook/" + workBook._id,
+          params, {
+          headers: {
+            'content-type': 'multipart/form-data'
+          },
+          maxContentLength: 10000000,
+          maxBodyLength: 10000000,
+        })
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("bookSection")
+        close()
+      },
+      onError: (err) => {
+        alert(err)
+      }
+    }
+  )
+
+  const formik = useFormik({
+    initialValues: {
+      title: workBook.title,
+      sku: workBook.sku,
+      scoring: workBook.scoring,
+      description: workBook.description || "#000000",
+      colorMain: workBook.colorMain || "#000000",
+      colorLightShade: workBook.colorLightShade || "#000000",
+      colorDarkShade: workBook.colorDarkShade || "#000000",
+      colorBackground: workBook.colorBackground || "#000000",
+      file_cover: workBook.file_header ? [workBook.file_cover] : [],
+      file_header: workBook.file_header ? [workBook.file_header] : [],
+    },
+    enableReinitialize: true,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const formData = new FormData();
+      formData.append('title', values.title);
+      formData.append('sku', values.sku);
+      formData.append('scoring', values.scoring);
+      formData.append('description', values.description);
+      formData.append('colorMain', values.colorMain);
+      formData.append('colorLightShade', values.colorLightShade);
+      formData.append('colorDarkShade', values.colorDarkShade);
+      formData.append('colorBackground', values.colorBackground);
+      formData.append('file_cover', values.file_cover[0]);
+      formData.append('file_header', values.file_header[0]);
+
+      workBookUpdateMutation.mutate(formData)
+    },
+  });
+
+  const UploadComponent = props => {
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      accept: { 'image/*': [] },
+      onDrop: acceptedFiles => {
+        setCoverImg(false)
+        formik.setFieldValue("file_cover", acceptedFiles);
+      }
+    });
+    return (
+      <div>
+        { }
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} multiple={false} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const UploadComponentHeader = props => {
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      accept: { 'image/*': [] },
+      onDrop: acceptedFiles => {
+        setHeaderImg(false)
+        formik.setFieldValue("file_header", acceptedFiles);
+      }
+    });
+    return (
+      <div>
+        { }
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} multiple={false} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <Modal
+      open={true}
+      onClose={close}
+      style={{ overflow: "scroll" }}
+    >
+      <Box className="modal-wrap">
+        <FormikProvider value={formik}>
+          <form onSubmit={formik.handleSubmit}>
+            <Grid container
+              spacing={3}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center">
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="title"
+                  name="title"
+                  label="Title"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="sku"
+                  name="sku"
+                  label="SKU"
+                  value={formik.values.sku}
+                  onChange={formik.handleChange}
+                  error={formik.touched.sku && Boolean(formik.errors.sku)}
+                  helperText={formik.touched.sku && formik.errors.sku}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={2}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={formik.values.scoring}
+                      onChange={formik.handleChange}
+                      // error={formik.touched.scoring && Boolean(formik.errors.scoring)}
+                      name="scoring" />
+                  }
+                  label="Scoring"
+                />
+              </Grid>
+            </Grid>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              multiline
+              rows={4}
+              id="description"
+              name="description"
+              label="Description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              error={formik.touched.description && Boolean(formik.errors.description)}
+              helperText={formik.touched.description && formik.errors.description}
+            />
+            <Grid container
+              spacing={3}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="baseline"
+              className="fileDrop">
+              <Grid item xs={12} sm={6}>
+                <div className="form-group">
+                  <label htmlFor="file" className="label">Workbook Cover Image*</label>
+                  <UploadComponent setFieldValue={formik.setFieldValue} />
+                  <Typography>Recommended dimensions: 1200x1200</Typography>
+                  {coverImg ? (
+                    <>
+                      <img src={process.env.REACT_APP_API_URL + "/" + workBook.file_cover}
+                        alt=''
+                        className="img-thumbnail mt-2"
+                        height={100}
+                        width={100} />
+                      <DeleteForeverIcon
+                        style={{ cursor: "pointer", position: "absolute" }}
+                        onClick={() => {
+                          setCoverImg(false)
+                          formik.setFieldValue("file_cover", []);
+                        }}
+                      />
+                    </>
+                  ) : formik.values.file_cover ? formik.values.file_cover.map((file, i) => (
+                    <div key={i} style={{ position: "relative", width: "fit-content" }}>
+                      < Thumb file={file} />
+                      <DeleteForeverIcon
+                        style={{ cursor: "pointer", position: "absolute" }}
+                        onClick={() => {
+                          formik.setFieldValue("file_cover", []);
+                        }}
+                      />
+                    </div>
+                  )) : ""}
+                </div>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <div className="form-group">
+                  <label htmlFor="file" className="label">Workbook Header Image*</label>
+
+                  <UploadComponentHeader setFieldValue={formik.setFieldValue} />
+                  <Typography>Recommended dimensions: 1200x500</Typography>
+                  {headerImg ? (
+                    <>
+                      <img src={process.env.REACT_APP_API_URL + "/" + workBook.file_header}
+                        alt=''
+                        className="img-thumbnail mt-2"
+                        height={100}
+                        width={100} />
+                      <DeleteForeverIcon
+                        style={{ cursor: "pointer", position: "absolute" }}
+                        onClick={() => {
+                          setHeaderImg(false)
+                          formik.setFieldValue("file_header", []);
+
+                        }}
+                      />
+                    </>
+                  ) : formik.values.file_header ? formik.values.file_header.map((file, i) => (
+                    <div key={i} style={{ position: "relative", width: "fit-content" }}>
+                      < Thumb file={file} />
+                      <DeleteForeverIcon
+                        style={{ cursor: "pointer", position: "absolute" }}
+                        onClick={() => {
+                          formik.setFieldValue("file_header", []);
+                        }}
+                      />
+                    </div>
+                  )) : ""}
+                </div>
+              </Grid>
+            </Grid>
+
+            <Grid container
+              spacing={3}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center">
+              <Grid item xs={12} sm={7}>
+                <Grid container
+                  spacing={3}
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center">
+                  <Grid item xs={12} sm={3}>
+                    <div className="colorPicker">
+                      <div className="pickerWrap">
+                        <ColorPicker
+                          name='colorMain'
+                          defaultValue={formik.values.colorMain}
+                          value={formik.values.colorMain}
+                          type={'color'}
+                          onChange={colorMain => formik.setFieldValue("colorMain", colorMain)}
+                        />
+                        <Field
+                          name="colorMain"
+                          component={ColorPickerField}
+                          className="pickerText"
+                        />
+                      </div>
+                      <span>Main color</span>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} sm={3}>
+                    <div className="colorPicker">
+                      <div className="pickerWrap">
+                        <ColorPicker
+                          name='colorLightShade'
+                          defaultValue={formik.values.colorLightShade}
+                          value={formik.values.colorLightShade}
+                          type={'color'}
+                          onChange={colorLightShade => {
+                            formik.setFieldValue("colorLightShade", colorLightShade)
+                          }}
+                        />
+                        <Field
+                          name="colorLightShade"
+                          component={ColorPickerField}
+                          className="pickerText"
+                        />
+                      </div>
+                      <span>Light shade</span>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} sm={3}>
+                    <div className="colorPicker">
+                      <div className="pickerWrap">
+                        <ColorPicker
+                          defaultValue={formik.values.colorDarkShade}
+                          value={formik.values.colorDarkShade}
+                          type={'color'}
+                          onChange={colorDarkShade => formik.setFieldValue("colorDarkShade", colorDarkShade)}
+                        />
+                        <Field
+                          name="colorDarkShade"
+                          component={ColorPickerField}
+                          className="pickerText"
+                        />
+                      </div>
+                      <span>Dark shade</span>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} sm={3}>
+                    <div className="colorPicker">
+                      <div className="pickerWrap">
+                        <ColorPicker
+                          name='colorBackground'
+                          defaultValue={formik.values.colorBackground}
+                          value={formik.values.colorBackground}
+                          type={'color'}
+                          onChange={colorBackground => formik.setFieldValue("colorBackground", colorBackground)}
+                        />
+                        <Field
+                          name="colorBackground"
+                          component={ColorPickerField}
+                          className="pickerText"
+                        />
+                      </div>
+                      <span>Background color</span>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12} sm={4} align="right">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{ mr: 3 }}
+                  onClick={close}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit">
+                  Update
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </FormikProvider >
+      </Box>
+    </Modal>
+  )
+}

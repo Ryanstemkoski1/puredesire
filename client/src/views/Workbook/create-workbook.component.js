@@ -15,7 +15,6 @@ import Thumb from "./Thumb";
 import ColorPicker from 'mui-color-picker'
 import { ColorPickerField } from 'mui-color-picker';
 import { Divider } from "../../components/atoms";
-
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const CreateWorkbook = () => {
@@ -76,7 +75,7 @@ const CreateWorkbook = () => {
                 .post(process.env.REACT_APP_API_URL + "/workbook/create-workbook", formData, config)
                 .then((res) => {
                     if (res.status === 200) {
-                        history(`workbook/edit-workbook/${res.data.workbookId}`);
+                        history(`/workbook/edit-workbook/${res.data.workbookId}`);
                     } else Promise.reject();
                 })
                 .catch((err) => alert(err));
@@ -265,8 +264,6 @@ const CreateWorkbook = () => {
                                                     defaultValue='#000000'
                                                     value={formik.values.colorMain}
                                                     type={'color'}
-                                                    // onChange={color => console.log(color)}
-                                                    // onChange={formik.values.setFieldValue("color", color)}
                                                     onChange={colorMain => formik.setFieldValue("colorMain", colorMain)}
                                                 />
                                                 <Field
@@ -287,8 +284,6 @@ const CreateWorkbook = () => {
                                                     defaultValue='#000000'
                                                     value={formik.values.colorLightShade}
                                                     type={'color'}
-                                                    // onChange={color => console.log(color)}
-                                                    // onChange={formik.values.setFieldValue("color", color)}
                                                     onChange={colorLightShade => formik.setFieldValue("colorLightShade", colorLightShade)}
                                                 />
                                                 <Field
@@ -309,8 +304,6 @@ const CreateWorkbook = () => {
                                                     defaultValue='#000000'
                                                     value={formik.values.colorDarkShade}
                                                     type={'color'}
-                                                    // onChange={color => console.log(color)}
-                                                    // onChange={formik.values.setFieldValue("color", color)}
                                                     onChange={colorDarkShade => formik.setFieldValue("colorDarkShade", colorDarkShade)}
                                                 />
                                                 <Field
@@ -331,8 +324,6 @@ const CreateWorkbook = () => {
                                                     defaultValue='#000000'
                                                     value={formik.values.colorBackground}
                                                     type={'color'}
-                                                    // onChange={color => console.log(color)}
-                                                    // onChange={formik.values.setFieldValue("color", color)}
                                                     onChange={colorBackground => formik.setFieldValue("colorBackground", colorBackground)}
                                                 />
                                                 <Field
