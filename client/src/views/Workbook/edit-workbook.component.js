@@ -1,19 +1,52 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Divider } from "../../components/atoms";
-import { Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { CreateItems, CreateSection } from "../../components/organisms/CreateWorkbook";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 export default function EditWorkbook() {
     const urlParams = useParams();
     const workBookQuery = useQuery(["bookSection", urlParams.id], (params) => fetchWorkBook(params.queryKey[1]))
 
+    const sectionUpdateMutation = useMutation(
+        (params) => {
+            return axios.put('')
+        },
+        {
+            onSuccess: () => {
+
+            },
+            onError: (err) => {
+                alert(err)
+            }
+        }
+    )
+
     if (workBookQuery.isLoading || workBookQuery.isError) return null
 
     const workBook = workBookQuery.data || {}
+
+    const handleDragandDrop = (result) => {
+        if (!result.destination) return
+        const sections = reorder(
+            workBook.sections,
+            result.source.index,
+            result.destination.index
+        )
+    }
+
+    const reorder = (list, startIndex, endIndex) => {
+        console.log("result", startIndex, endIndex)
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+
+        return result;
+    };
 
     return (
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
@@ -23,12 +56,41 @@ export default function EditWorkbook() {
                 </Typography>
                 <Divider />
                 <label className="label">Content</label>
-                {workBook.sections && workBook.sections.map((item, i) =>
+                {/* {workBook.sections && workBook.sections.map((item, i) =>
                     <CreateItems key={item._id} item={item} workBookId={urlParams.id} />
-                )}
-                <CreateSection workBookId={urlParams.id} workBook={workBook} />
+                )} */}
+                <Box>
+                    <DragDropContext onDragEnd={handleDragandDrop}>
+                        <Droppable droppableId="droppable">
+                            {(provided) => (
+                                <div {...provided.droppableProps} ref={provided.innerRef}>
+                                    {workBook.sections.map((section, index) => (
+                                        <Draggable
+                                            key={`item-${section._id}`}
+                                            draggableId={`item-${section._id}`}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <CreateItems key={section._id} item={section} workBookId={urlParams.id} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                    <CreateSection workBookId={urlParams.id} workBook={workBook} />
+                </Box>
             </div>
-        </Paper>
+        </Paper >
     )
 };
 
