@@ -12,6 +12,7 @@ import axios from 'axios';
 import EditLessn from './EditLesson';
 import CreateAssessment from './CreateAssessment/CreateAssessment';
 import EditAssessment from './EditAssessment';
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 export default function CreateSectionContents({ workBookId, sectionId }) {
   const queryClient = useQueryClient()
@@ -42,7 +43,29 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
     }
   )
 
+  const updateSectionItemMutation = useMutation(
+    (params) => {
+      return axios.put(process.env.REACT_APP_API_URL + `/workbookItem/update-itemorder`, params)
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["sectionItems"])
+      },
+      onError: (err) => {
+        alert(err)
+      }
+    }
+  )
+
   const sectionItems = itemQuery.data || []
+
+  const handleDragandDrop = (result) => {
+    if (!result.destination) return
+
+    let newItems = []
+    newItems.push(sectionItems[result.source.index], sectionItems[result.destination.index])
+    updateSectionItemMutation.mutate(newItems)
+  }
 
   return (
     <React.Fragment>
@@ -103,7 +126,7 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
           <EditLessn item={activeItem} close={() => setOpen(false)} /> :
           <EditAssessment item={activeItem} close={() => setOpen(false)} />
       )}
-
+      {/* 
       {!!sectionItems.length && sectionItems.map((item, index) => (
         <Box key={index} sx={{ padding: "24px", margin: "20px 0", border: "2px solid #FFA659", borderRadius: "4px" }}>
           <Grid container
@@ -156,7 +179,84 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
             </Grid>
           </Grid>
         </Box>
-      ))}
+      ))} */}
+      <DragDropContext onDragEnd={handleDragandDrop}>
+        <Droppable droppableId="droppable">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {!!sectionItems.length && sectionItems.map((item, index) => (
+                <Draggable
+                  key={`item-${item._id}`}
+                  draggableId={`item-${item._id}`}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Box key={item._id} sx={{ padding: "24px", margin: "20px 0", border: "2px solid #FFA659", borderRadius: "4px" }}>
+                        <Grid container
+                          spacing={3}
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center">
+                          <Grid item>
+                            <Grid container
+                              spacing={3}
+                              direction="row"
+                              justifyContent=""
+                              alignItems="center"
+                            >
+                              <Grid item>
+                                <label className="label">{item.title}</label>
+                              </Grid>
+                              <Grid item
+                                style={{ display: "flex" }}
+                              >
+                                <MenuIcon style={{ fontSize: "32px", fill: "#FFA659" }} />
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item>
+                            <Grid container
+                              spacing={3}
+                              alignItems="center">
+                              <Grid item
+                                style={{ display: "flex", cursor: "pointer " }}
+                                onClick={() => {
+                                  setOpen(true)
+                                  setActiveItem(item)
+                                }}
+                              >
+                                <ModeEditOutlineOutlinedIcon />
+                                <span className="label">Edit</span>
+                              </Grid>
+                              <Grid item
+                                style={{ display: "flex", cursor: "pointer " }}
+                                onClick={() => {
+                                  setDeleteItem(true)
+                                  setActiveItem(item)
+                                }}
+                              >
+                                <DeleteOutlineOutlinedIcon style={{ fill: 'red' }} />
+                                <span className="label">Delete</span>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
 
       <Box
         className="dashed-border"

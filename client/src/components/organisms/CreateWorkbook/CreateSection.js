@@ -27,7 +27,10 @@ export default function CreateSection({ workBookId, workBook }) {
   const addSectionMutation = useMutation(
     (params) => {
       return axios
-        .put(process.env.REACT_APP_API_URL + `/workbook/add-section/${workBookId}`, params)
+        .put(process.env.REACT_APP_API_URL + `/workbook/add-section/${workBookId}`, params, {
+          maxContentLength: 10000000,
+          maxBodyLength: 10000000,
+        })
     },
     {
       onSuccess: () => {

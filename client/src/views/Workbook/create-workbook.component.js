@@ -259,18 +259,18 @@ const CreateWorkbook = () => {
                                     <Grid item xs={12} sm={3}>
                                         <div className="colorPicker">
                                             <div className="pickerWrap">
-                                                <ColorPicker
-                                                    name='colorMain'
-                                                    defaultValue='#000000'
-                                                    value={formik.values.colorMain}
-                                                    type={'color'}
-                                                    onChange={colorMain => formik.setFieldValue("colorMain", colorMain)}
-                                                />
-                                                <Field
+                                                <input
+                                                    type="color"
                                                     name="colorMain"
-                                                    component={ColorPickerField}
-                                                    className="pickerText"
+                                                    label="colorMain"
+                                                    value={formik.values.colorMain}
+                                                    onChange={formik.handleChange}
                                                 />
+                                                <input
+                                                    name="colorMain"
+                                                    className="pickerText"
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.colorMain} />
                                             </div>
                                             <span>Main color</span>
                                         </div>
@@ -279,18 +279,18 @@ const CreateWorkbook = () => {
                                     <Grid item xs={12} sm={3}>
                                         <div className="colorPicker">
                                             <div className="pickerWrap">
-                                                <ColorPicker
-                                                    name='colorLightShade'
-                                                    defaultValue='#000000'
-                                                    value={formik.values.colorLightShade}
-                                                    type={'color'}
-                                                    onChange={colorLightShade => formik.setFieldValue("colorLightShade", colorLightShade)}
-                                                />
-                                                <Field
+                                                <input
+                                                    type="color"
                                                     name="colorLightShade"
-                                                    component={ColorPickerField}
-                                                    className="pickerText"
+                                                    label="colorLightShade"
+                                                    value={formik.values.colorLightShade}
+                                                    onChange={formik.handleChange}
                                                 />
+                                                <input
+                                                    name="colorLightShade"
+                                                    className="pickerText"
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.colorLightShade} />
                                             </div>
                                             <span>Light shade</span>
                                         </div>
@@ -299,18 +299,18 @@ const CreateWorkbook = () => {
                                     <Grid item xs={12} sm={3}>
                                         <div className="colorPicker">
                                             <div className="pickerWrap">
-                                                <ColorPicker
-                                                    name='colorDarkShade'
-                                                    defaultValue='#000000'
-                                                    value={formik.values.colorDarkShade}
-                                                    type={'color'}
-                                                    onChange={colorDarkShade => formik.setFieldValue("colorDarkShade", colorDarkShade)}
-                                                />
-                                                <Field
+                                                <input
+                                                    type="color"
                                                     name="colorDarkShade"
-                                                    component={ColorPickerField}
-                                                    className="pickerText"
+                                                    label="colorDarkShade"
+                                                    value={formik.values.colorDarkShade}
+                                                    onChange={formik.handleChange}
                                                 />
+                                                <input
+                                                    name="colorDarkShade"
+                                                    className="pickerText"
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.colorDarkShade} />
                                             </div>
                                             <span>Dark shade</span>
                                         </div>
@@ -319,18 +319,18 @@ const CreateWorkbook = () => {
                                     <Grid item xs={12} sm={3}>
                                         <div className="colorPicker">
                                             <div className="pickerWrap">
-                                                <ColorPicker
-                                                    name='colorBackground'
-                                                    defaultValue='#000000'
-                                                    value={formik.values.colorBackground}
-                                                    type={'color'}
-                                                    onChange={colorBackground => formik.setFieldValue("colorBackground", colorBackground)}
-                                                />
-                                                <Field
+                                                <input
+                                                    type="color"
                                                     name="colorBackground"
-                                                    component={ColorPickerField}
-                                                    className="pickerText"
+                                                    label="colorBackground"
+                                                    value={formik.values.colorBackground}
+                                                    onChange={formik.handleChange}
                                                 />
+                                                <input
+                                                    name="colorBackground"
+                                                    className="pickerText"
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.colorBackground} />
                                             </div>
                                             <span>Background color</span>
                                         </div>

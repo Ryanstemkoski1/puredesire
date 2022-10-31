@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 // Workbook Model
 const Workbook = require("../models/workbookModel");
+const WorkbookItem = require("../models/workbookItemsModel")
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -90,7 +91,7 @@ router.post('/delete', (req, res) => {
     }
 })
 
-//Update Section
+//Create Section
 router
     .route("/add-section/:id")
     .put((req, res, next) => {
@@ -164,6 +165,29 @@ router.put("/update-section/:id",
         );
 
     });
+// Update Sections
+router.put("/update-sections/:id",
+    (req, res, next) => {
+        Workbook.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body,
+            },
+            {
+                new: true
+            },
+            (error, data) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    res.json(data);
+                    console.log("Workbook updated successfully !");
+                }
+            }
+        )
+    }
+)
+
 
 // READ Workbooks
 router.get("/", (req, res) => {
@@ -220,7 +244,6 @@ router
         if (req.body.file_header === "undefined" || req.body.file_header === null) {
             req.body.file_header = ""
         }
-
         Workbook.findByIdAndUpdate(
             req.params.id,
             {
