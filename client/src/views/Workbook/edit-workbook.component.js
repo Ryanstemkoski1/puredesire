@@ -67,10 +67,10 @@ export default function EditWorkbook() {
         </Typography>
         <Divider />
         <label className="label">Content</label>
-        {workBook.sections && workBook.sections.map((item, i) =>
+        {/* {workBook.sections && workBook.sections.map((item, i) =>
           <CreateItems key={item._id} item={item} workBookId={urlParams.id} />
-        )}
-        {/* <Box>
+        )} */}
+        <Box>
           <DragDropContext onDragEnd={handleDragandDrop}>
             <Droppable droppableId="droppable">
               {(provided) => (
@@ -98,7 +98,7 @@ export default function EditWorkbook() {
               )}
             </Droppable>
           </DragDropContext>
-        </Box> */}
+        </Box>
         <CreateSection workBookId={urlParams.id} workBook={workBook} />
       </div>
     </Paper >

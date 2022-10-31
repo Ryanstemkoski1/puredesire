@@ -39,22 +39,22 @@ router.post("/create-workbookItem", async (req, res) => {
     const itemContent = new WorkbookItem(req.body);
     const result = await itemContent.save();
 
-    const results = await Workbook.updateOne(
-      {
-        "sections": { "$elemMatch": { "_id": mongoose.Types.ObjectId(sectionid) } }
-      },
-      {
-        $push: {
-          'sections.$.items': {
-            title: title,
-            item_id: result._id,
-          }
-        }
-      },
-      {
-        new: true
-      }
-    )
+    // const results = await Workbook.updateOne(
+    //   {
+    //     "sections": { "$elemMatch": { "_id": mongoose.Types.ObjectId(sectionid) } }
+    //   },
+    //   {
+    //     $push: {
+    //       'sections.$.items': {
+    //         title: title,
+    //         item_id: result._id,
+    //       }
+    //     }
+    //   },
+    //   {
+    //     new: true
+    //   }
+    // )
 
     res.send({ success: 'WorkbookItem created successfully.' });
   } catch (err) {
@@ -91,19 +91,19 @@ router.get("/:id", async (req, res) => {
 router.put("/update-workbookitem/:id", async (req, res, next) => {
   const result = await WorkbookItem.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
-  const results = await Workbook.updateOne(
-    {
-      "sections": { "$elemMatch": { "items": { "$elemMatch": { "item_id": mongoose.Types.ObjectId(result._id) } } } }
-    },
-    {
-      $set: {
-        "sections.$.items.$[t].title": result.title
-      }
-    },
-    {
-      arrayFilters: [{ "t.item_id": mongoose.Types.ObjectId(result._id) }]
-    }
-  )
+  // const results = await Workbook.updateOne(
+  //   {
+  //     "sections": { "$elemMatch": { "items": { "$elemMatch": { "item_id": mongoose.Types.ObjectId(result._id) } } } }
+  //   },
+  //   {
+  //     $set: {
+  //       "sections.$.items.$[t].title": result.title
+  //     }
+  //   },
+  //   {
+  //     arrayFilters: [{ "t.item_id": mongoose.Types.ObjectId(result._id) }]
+  //   }
+  // )
   res.send({ success: 'WorkbookItem updated successfully.' });
 })
 
@@ -147,16 +147,16 @@ router.put("/update-itemorder", async (req, res) => {
 router.delete("/delete-workbookitem/:id", async (req, res, next) => {
   const result = await WorkbookItem.deleteOne({ _id: req.params.id });
 
-  const results = await Workbook.updateOne(
-    {
-      "sections": { "$elemMatch": { "items": { "$elemMatch": { "item_id": mongoose.Types.ObjectId(result._id) } } } }
-    },
-    {
-      $pull: {
-        "sections.$.items.$[].item_id": mongoose.Types.ObjectId(req.params.id)
-      }
-    }
-  )
+  // const results = await Workbook.updateOne(
+  //   {
+  //     "sections": { "$elemMatch": { "items": { "$elemMatch": { "item_id": mongoose.Types.ObjectId(result._id) } } } }
+  //   },
+  //   {
+  //     $pull: {
+  //       "sections.$.items.$[].item_id": mongoose.Types.ObjectId(req.params.id)
+  //     }
+  //   }
+  // )
 
   res.send({ success: 'WorkbookItem was deleted successfully.' });
 });
