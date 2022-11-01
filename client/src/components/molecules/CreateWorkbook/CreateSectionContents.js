@@ -210,7 +210,7 @@ export default function CreateSectionContents({ workBookId, sectionId }) {
                               alignItems="center"
                             >
                               <Grid item>
-                                <label className="label">{item.title}</label>
+                                <label className="label">{item.type}</label>
                               </Grid>
                               <Grid item
                                 style={{ display: "flex" }}
