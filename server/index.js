@@ -18,20 +18,18 @@ app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 app.use(express.json());
 app.use('/files', express.static('files'));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: [
-        process.env.SERVER_URL,
-        process.env.CLIENT_URL,
-    ],
-    credentials: true,
-  })
-);
-// app.use(cors({ origin: true, credentials: true }));
-
+// app.use(
+//   cors({
+//     origin: [
+//       process.env.SERVER_URL,
+//       process.env.CLIENT_URL,
+//     ],
+//     credentials: true,
+//   })
+// );
+app.use(cors({ origin: true, credentials: true }));
 
 // connect to mongoDB
-
 mongoose.connect(
   process.env.MDB_CONNECT,
   {
