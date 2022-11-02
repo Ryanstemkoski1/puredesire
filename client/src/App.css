@@ -69,3 +69,60 @@
     display: none;
   }
 }
+
+
+/** reusable **/
+
+.small {
+  font-size: .8em;
+}
+.gray {
+  color:#AAAAAA;
+}
+.green {
+  color: #1A9182;
+}
+.strong {
+  font-weight: 600;
+}
+.block {
+  display: block;
+}
+.inlineBlock {
+  display: inline-block;
+}
+.boxShadow {
+  box-shadow: 0 0 10px rgb(0 0 0 / 12%);
+  border-radius: 10px;
+  padding: 30px;
+}
+  .boxShadow .flexWrap {
+    align-items: center;
+    justify-content: end;
+  }
+.full {
+  width: 100%;
+  display:block;
+  text-align:center;
+}
+
+@media screen and (min-width: 768px) {
+  .flexWrap {
+    display: flex;
+  }
+  .alignStart {
+    align-items: start;
+  }
+  .alignCenter {
+    align-items: center;
+  }
+  .spaceBetween {
+    justify-content: space-between;
+  }
+}
+
+
+.breadCrumb a{
+  color:#707070;
+  text-decoration: none;
+}

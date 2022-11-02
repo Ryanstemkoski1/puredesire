@@ -1,54 +1,13 @@
 import * as React from 'react';
 import Link from '@mui/material/Link';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import './RecentPurchases.css';
+import workbookPlaceholder from "../../images/workbook-placeholder.png";
+import Typography from '@mui/material/Typography';
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-    return { id, date, name, shipTo, paymentMethod, amount };
-}
 
-const rows = [
-    createData(
-        0,
-        '16 Mar, 2019',
-        'Elvis Presley',
-        'Tupelo, MS',
-        'VISA ⠀•••• 3719',
-        312.44,
-    ),
-    createData(
-        1,
-        '16 Mar, 2019',
-        'Paul McCartney',
-        'London, UK',
-        'VISA ⠀•••• 2574',
-        866.99,
-    ),
-    createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-    createData(
-        3,
-        '16 Mar, 2019',
-        'Michael Jackson',
-        'Gary, IN',
-        'AMEX ⠀•••• 2000',
-        654.39,
-    ),
-    createData(
-        4,
-        '15 Mar, 2019',
-        'Bruce Springsteen',
-        'Long Branch, NJ',
-        'VISA ⠀•••• 5919',
-        212.79,
-    ),
-];
 
 function preventDefault(event) {
     event.preventDefault();
@@ -57,37 +16,136 @@ function preventDefault(event) {
 export default function RecentPurchasesData() {
     return (
         <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Paper sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
                 <React.Fragment>
                     <Title>Recent Purchases</Title>
-                    <div className="tableWrap">
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Ship To</TableCell>
-                                    <TableCell>Payment Method</TableCell>
-                                    <TableCell align="right">Sale Amount</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.id}>
-                                        <TableCell>{row.date}</TableCell>
-                                        <TableCell>{row.name}</TableCell>
-                                        <TableCell>{row.shipTo}</TableCell>
-                                        <TableCell>{row.paymentMethod}</TableCell>
-                                        <TableCell align="right">{`$${row.amount}`}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
-                    <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-                        See More Purchases
-                    </Link>
                 </React.Fragment>
+
+                <Grid container spacing={5} className="purchasesDashboard" sx={{textAlign:'left', marginTop:'10px'}}>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={5} className="purchasesDashboard" sx={{textAlign:'left', marginTop:'10px'}}>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                        <img src={workbookPlaceholder} alt="" style={{marginBottom:'10px'}}/>
+                        <span className="small gray block">
+                            <strong>Kit</strong>
+                        </span>
+                        <Typography variant="h3" sx={{marginTop:'4px', marginBottom: '2px'}}>Seven Pillars of Freedom Kit</Typography>
+                        <span className="small gray inlineBlock">
+                            <strong sx={{fontWeight: '500'}}>June 18, 2022 /</strong>
+                        </span>
+
+                        <span className="small green inlineBlock" style={{marginLeft:'5px'}}>
+                            <strong>$79.99</strong>
+                        </span>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                    </Grid>
+                    <Grid item xs={12} lg>
+                    </Grid>
+                </Grid>
             </Paper>
         </Grid>
     );

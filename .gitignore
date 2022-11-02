@@ -1,4 +1,28 @@
+.DS_Store
+.htaccess
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Client
+client/.env
+client/.env.development
+client/node_modules
+client/.pnp
+client/.pnp.js
+client/coverage
+client/build
+
+# Server
+server/.env
+server /node_modules
+server/*.eslintcache
+
+# Lambda
 lambda_function/node_modules/
 lambda_new/node_modules/
 lambda_new_2/node_modules/
 client/.env
+server/files/
+old_client/
+server/node_modules/

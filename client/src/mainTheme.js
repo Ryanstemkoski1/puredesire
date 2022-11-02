@@ -165,7 +165,7 @@ export const mainTheme = createTheme({
                     backgroundColor: '#EBEBEB'
                 },
                 bar: {
-                    backgroundColor: '#4791FF'
+                    backgroundColor: '#1C94A8'
                 }
             }
         },
@@ -181,6 +181,15 @@ export const mainTheme = createTheme({
             }
         },
 
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    color: '#1A9182',
+                    textDecoration: 'none',
+                    fontWeight: '600'
+                }
+            }
+        },
 
         MuiTypography: {
             styleOverrides: {
@@ -212,10 +221,24 @@ export const mainTheme = createTheme({
 
 
     typography: {
+        h2: {
+            fontSize: '32px',
+            color: '#4C4C4C',
+            lineHeight: '36px',
+            fontWeight: '500'
+        },
+        h3: {
+            fontSize: '20px',
+            color: '#4C4C4C',
+            lineHeight: '24px',
+            fontWeight: '700'
+        },
         fontSize: 14,
         fontFamily: [
             'Montserrat',
             'sans-serif'
         ].join(','),
-    }
+    },
+
+
 });

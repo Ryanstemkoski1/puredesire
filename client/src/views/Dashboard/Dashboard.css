@@ -704,6 +704,11 @@ label {
     margin: 0 !important;
 }
 
+.separator svg {
+    font-size: 9px;
+    margin: 0 10px;
+    fill: #F99554;
+}
 
 .collapseIcon {
     position: absolute !important;

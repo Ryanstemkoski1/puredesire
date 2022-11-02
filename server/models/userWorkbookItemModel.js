@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const signupSchema = new mongoose.Schema({
+  signups:[{
+    signupDate: {type: Date, default: Date.now, required: true},
+    user_id:  {type: mongoose.Schema.Types.ObjectId, ref:"User"},
+  }],
+  counter: {type: Number, required: true}
+});
 
 const userWorkbookItemSchema = new mongoose.Schema({
   item_id:  {type: mongoose.Schema.Types.ObjectId, ref:"WorkbookItem"},

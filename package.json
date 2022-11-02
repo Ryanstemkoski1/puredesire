@@ -1,0 +1,18 @@
+{
+	"name": "pure-desire-app",
+	"version": "1.0.0",
+	"dependencies": {
+	},
+	"scripts": {
+		"clientStart": "cd client && npm run clientStart",
+		"clientBuild": "cd client && npm run clientBuild",
+		"clientTest": "cd client && npm run clientTest",
+		"clientEject": "cd client && npm run clientEject",
+		"clientInstall": "cd client && npm install",
+		"clientUpdate": "cd client && npm update",
+		"prod": "cd server && node index",
+		"dev": "cd server && nodemon index",
+		"serverInstall": "cd server && npm install",
+		"serverUpdate": "cd server && npm update"
+	}
+}

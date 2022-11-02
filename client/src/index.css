@@ -137,9 +137,7 @@ ul.invoices {
     width:0;
 }
 
-span.MuiLinearProgress-bar {
-    background-color:red !important;
-}
+
 
 .progressbar-wrapper {
     width:100% !important;

@@ -9,8 +9,8 @@
     "@hello-pangea/dnd": "^16.0.1",
     "@hookform/resolvers": "^2.9.7",
     "@loadable/component": "^5.13.1",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.10.1",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.9",
     "@mui/styled-engine-sc": "^5.10.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -33,23 +33,26 @@
     "react-bootstrap": "^2.5.0-beta.1",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
-    "react-dropzone": "^14.2.2",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.34.2",
     "react-i18next": "^11.18.6",
     "react-query": "^3.39.2",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.1",
-    "recharts": "^2.1.13",
+    "recharts": "^2.1.15",
+    "rss-parser": "^3.12.0",
     "save": "^2.5.0",
     "styled-components": "^5.3.5",
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "clientStart": "react-scripts start",
+    "clientBuild": "react-scripts build",
+    "clientTest": "react-scripts test",
+    "clientEject": "react-scripts eject",
+    "clientInstall": "npm install",
+    "clientUpdate": "npm update"
   },
   "eslintConfig": {
     "extends": "react-app"

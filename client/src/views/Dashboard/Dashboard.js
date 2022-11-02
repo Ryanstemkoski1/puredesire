@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import { Route, Routes, BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Chart from './Chart';
 import DashboardData from './DashboardData';
+import UserDashboardData from './UserDashboardData';
 import ResponsiveDrawer from '../../components/responsiveDrawer';
 import LibraryData from './LibraryData';
 import Deposits from './Deposits';
@@ -30,6 +31,7 @@ import RecentPurchasesData from "./RecentPurchasesData";
 import CreditsData from "./CreditsData";
 import DisclaimersData from "./DisclaimersData";
 import GroupsData from "./GroupsData";
+import UserGroupsData from "./UserGroupsData";
 import NotebooksData from "./NotebooksData";
 import AssessmentsData from "./AssessmentsData";
 import UserData from "./UserData";
@@ -236,7 +238,8 @@ function DashboardContent() {
                                         className="breadCrumb"
                                     >
 
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        Dashboard
                                     </Typography>}>
                                 </Route>
                                 <Route path="library" element={
@@ -248,7 +251,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span>  Library
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/library'}>Library</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="recent-purchases" element={
@@ -260,7 +264,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Recent Purchases
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/recent-purchase'}>Recent Purchases</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="credits" element={
@@ -272,7 +277,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Credits
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/credits'}>Credits</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="disclaimers" element={
@@ -284,7 +290,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Disclaimers
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/disclaimers'}>Disclaimers</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="group" element={
@@ -296,7 +303,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Groups
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/group'}>Groups</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="notebooks" element={
@@ -308,7 +316,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Notebooks
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/notebooks'}>Notebooks</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="assessments" element={
@@ -320,7 +329,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Assessments
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/assessments'}>Assessments</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="user" element={
@@ -332,7 +342,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Users
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/user'}>Users</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="user/create-user" element={
@@ -344,7 +355,9 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Create Users
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/user'}>Users</a> <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        Create Users
                                     </Typography>}>
                                 </Route>
                                 <Route path="user/edit-user/:id" element={
@@ -356,7 +369,9 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Update Users
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/user'}>Users</a> <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        Update Users
                                     </Typography>}>
                                 </Route>
                                 <Route path="workbook" element={
@@ -368,7 +383,8 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Digital Library
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> 
+                                        <a href={'/workbook'}>Digital Library</a>
                                     </Typography>}>
                                 </Route>
                                 <Route path="workbook/create-workbook" element={
@@ -380,7 +396,9 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <HomeIcon sx={{ mr: 1 }} /> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> Dashboard <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> Create New Workbook
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/workbook'}>Digital Library</a> <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> 
+                                        Create New Workbook
                                     </Typography>}>
                                 </Route>
                             </Routes>
@@ -430,41 +448,37 @@ function DashboardContent() {
                 >
                     <Toolbar />
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-                        {/*<Grid container spacing={3}>*/}
-                        {/*    <Grid item xs={12}>*/}
-                        {/*        <Paper*/}
-                        {/*            sx={{*/}
-                        {/*                p: 2,*/}
-                        {/*                display: 'flex',*/}
-                        {/*                flexDirection: 'column',*/}
-                        {/*                height: 240,*/}
-                        {/*            }}*/}
-                        {/*        >*/}
-                        <Router>
-                            <Routes>
-                                {/*<Route path="/" element={<UserList />}></Route>*/}
-                                <Route path="/" element={<DashboardData />}></Route>
-                                <Route path="library" element={<LibraryData />}></Route>
-                                <Route path="recent-purchases" element={<RecentPurchasesData />}></Route>
-                                <Route path="credits" element={<CreditsData />}></Route>
-                                <Route path="disclaimers" element={<DisclaimersData />}></Route>
-                                {/*<Route path="groups" element={<GroupsData />}></Route>*/}
-                                <Route path="notebooks" element={<NotebooksData />}></Route>
-                                <Route path="assessments" element={<AssessmentsData />}></Route>
-                                <Route path="user" element={<UserList />}></Route>
-                                <Route path="user/create-user" element={<CreateUser />}></Route>
-                                <Route path="user/edit-user/:id" element={<EditUser />}></Route>
-                                <Route path="user/user-list" element={<UserList />}></Route>
-                                <Route path="workbook" element={<WorkbookList />}></Route>
-                                <Route path="workbook/create-workbook" element={<CreateWorkbook />}></Route>
-                                <Route path="workbook/edit-workbook/:id" element={<EditWorkbook />}></Route>
-                                <Route path="workbook/workbook-list" element={<WorkbookList />}></Route>
-                                <Route path="group" element={<GroupList />}></Route>
-                                <Route path="group/create-group" element={<CreateGroup />}></Route>
-                                <Route path="group/edit-group/:id" element={<EditGroup />}></Route>
-                                <Route path="group/group-list" element={<GroupList />}></Route>
-                            </Routes>
-                        </Router>
+                            <Router>
+                                <Routes>
+                                    {/*<Route path="/" element={<UserList />}></Route>*/}
+                                    { userView
+                                        ? <Route path="/" element={<UserDashboardData />}></Route>
+                                        : <Route path="/" element={<DashboardData />}></Route>
+                                    }
+                                    <Route path="library" element={<LibraryData />}></Route>
+                                    <Route path="recent-purchases" element={<RecentPurchasesData />}></Route>
+                                    <Route path="credits" element={<CreditsData />}></Route>
+                                    <Route path="disclaimers" element={<DisclaimersData />}></Route>
+                                    {/*<Route path="groups" element={<GroupsData />}></Route>*/}
+                                    <Route path="notebooks" element={<NotebooksData />}></Route>
+                                    <Route path="assessments" element={<AssessmentsData />}></Route>
+                                    <Route path="user" element={<UserList />}></Route>
+                                    <Route path="user/create-user" element={<CreateUser />}></Route>
+                                    <Route path="user/edit-user/:id" element={<EditUser />}></Route>
+                                    <Route path="user/user-list" element={<UserList />}></Route>
+                                    <Route path="workbook" element={<WorkbookList />}></Route>
+                                    <Route path="workbook/create-workbook" element={<CreateWorkbook />}></Route>
+                                    <Route path="workbook/edit-workbook/:id" element={<EditWorkbook />}></Route>
+                                    <Route path="workbook/workbook-list" element={<WorkbookList />}></Route>
+                                    { userView
+                                        ? <Route path="group" element={<UserGroupsData />}></Route>
+                                        : <Route path="group" element={<GroupList />}></Route>
+                                    }
+                                    <Route path="group/create-group" element={<CreateGroup />}></Route>
+                                    <Route path="group/edit-group/:id" element={<EditGroup />}></Route>
+                                    <Route path="group/group-list" element={<GroupList />}></Route>
+                                </Routes>
+                            </Router>
                         <Copyright />
                     </Container>
                 </Box>

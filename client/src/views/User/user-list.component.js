@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import {signOut} from "../../utils/cognitoAuth";
+// import {signOut} from "../../utils/cognitoAuth";
 import Table from '@mui/material/Table';
 
 
@@ -36,17 +36,6 @@ const UserList = () => {
             return <UserTableRow obj={res} key={i} />;
         });
     };
-
-    // const DataTable = () => {
-    //     return users.map((row) => (
-    //         <TableRow key={row.id}>
-    //             <TableCell>{row.name}</TableCell>
-    //             <TableCell>{row.email}</TableCell>
-    //             <TableCell>{row.password}</TableCell>
-    //             <TableCell>{row.role}</TableCell>
-    //         </TableRow>
-    //     ))
-    // };
 
     return (
         <Grid item xs={12}>
@@ -90,9 +79,6 @@ const UserList = () => {
                             </TableBody>
                         </Table>
                     </div>
-                    {/*<Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>*/}
-                    {/*    See more users*/}
-                    {/*</Link>*/}
                 </React.Fragment>
             </Paper>
         </Grid>

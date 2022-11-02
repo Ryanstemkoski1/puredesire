@@ -1,11 +1,14 @@
 const router = require("express").Router();
-const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Customer = require("../models/customerModel");
+
+// Import Models
+const User = require("../models/userModel");
+
+// Signup Tracking Component
+const Signup = require("../components/signupComponent");
 
 // register
-
 router.post("/", async (req, res) => {
   try {
     const { email, role, name } = req.body;
@@ -20,7 +23,6 @@ router.post("/", async (req, res) => {
     const savedUser = await newUser.save();
 
     // sign the token
-
     const token = jwt.sign(
       {
         user: savedUser._id,
@@ -28,8 +30,10 @@ router.post("/", async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    // send the token in a HTTP-only cookie
+	// Add the signup
+	Signup.addSignup(savedUser._id);
 
+    // send the token in a HTTP-only cookie
     res
       .cookie("token", token, {
         httpOnly: true,

@@ -9,18 +9,18 @@ import './Users.css';
 const UserTableRow = (props) => {
     const { _id, name, email, password, role } = props.obj;
 
-    const deleteUser = () => {
-        axios
-            .delete(
-                process.env.REACT_APP_API_URL + "/user/delete-user/" + _id)
-            .then((res) => {
-                if (res.status === 200) {
-                    alert("User successfully deleted");
-                    window.location.reload();
-                } else Promise.reject();
-            })
-            .catch((err) => alert("Something went wrong"));
-    };
+    // const deleteUser = () => {
+    //     axios
+    //         .delete(
+    //             process.env.REACT_APP_API_URL + "/user/delete-user/" + _id)
+    //         .then((res) => {
+    //             if (res.status === 200) {
+    //                 alert("User successfully deleted");
+    //                 window.location.reload();
+    //             } else Promise.reject();
+    //         })
+    //         .catch((err) => alert("Something went wrong"));
+    // };
 
     return (
         <TableRow key={_id}>
@@ -32,33 +32,8 @@ const UserTableRow = (props) => {
                              to={"/user/edit-user/" + _id}>
                     Edit
                 </Link>
-
-                {/*<Link className="button-link"*/}
-                {/*      to={"/user/edit-user/" + _id}>*/}
-                {/*    Login As*/}
-                {/*</Link>*/}
-
-                {/*<Link className="button-link"*/}
-                {/*      to={"/user/edit-user/" + _id}>*/}
-                {/*    Delete*/}
-                {/*</Link>*/}
             </TableCell>
         </TableRow>
-        // <tr>
-        //     <td>{name}</td>
-        //     <td>{email}</td>
-        //     <td>{role}</td>
-        //     <td>
-        //         <Link className="edit-link"
-        //               to={"/user/edit-user/" + _id}>
-        //             Edit
-        //         </Link>
-        //         <Button onClick={deleteUser}
-        //                 size="sm" variant="danger">
-        //             Delete
-        //         </Button>
-        //     </td>
-        // </tr>
     );
 };
 

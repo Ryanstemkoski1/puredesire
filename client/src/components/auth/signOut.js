@@ -8,6 +8,8 @@ export default function SignOut() {
             <button className="logoutButton"
                 onClick={() => {
                     signOut();
+
+                    window.location.href = '/';
                 }}
             >
                 <ExitToAppIcon sx={{ mr: 1 }} style={{fill: '#1C94A8'}} />
