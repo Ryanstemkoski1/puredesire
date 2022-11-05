@@ -8,7 +8,7 @@ export default function AssessmentContent1({ item, index, removeItem, formik }) 
   useEffect(() => {
     switch (item.type) {
       case "text":
-        setTitle("Text*")
+        setTitle("Text Input*")
         break
       case "textarea":
         setTitle("Text Area*")

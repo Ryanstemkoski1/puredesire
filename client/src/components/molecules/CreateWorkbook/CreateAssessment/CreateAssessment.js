@@ -7,6 +7,7 @@ import { FormikProvider, useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import AssessmentContent3 from './AssessmentContent3';
 
 
 export default function CreateAssessment({ workBookId, sectionId, open }) {
@@ -48,6 +49,9 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
       case "radio":
         setElements([...elements, { type: "radio", options: [], key: key }])
         break
+      case "content":
+        setElements([...elements, { type: "content", options: [], key: key }])
+        break
     }
   }
 
@@ -79,6 +83,17 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
     }))
   }
 
+  const addContent = (cont, i) => {
+    setElements(elements => elements.map((e, index) => {
+      if (index === i) {
+        e.options[0] = cont
+        return e
+      } else {
+        return e
+      }
+    }))
+  }
+
   const formik = useFormik({
     initialValues: {
       assessmentTitle: "",
@@ -96,7 +111,7 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
             optionArr.push(
               {
                 title: fields[`options${index}${j}`],
-                points: parseInt(fields[`points${index}${j}`])
+                points: fields[`points${index}${j}`] ? parseInt(fields[`points${index}${j}`]) : 1
               }
             )
           })
@@ -108,12 +123,19 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
               options: optionArr
             }
           )
+        } else if (item.type === "content") {
+          quesArray.push(
+            {
+              title: item.options[0] ? item.options[0] : "",
+              type: item.type,
+            }
+          )
         } else {
           quesArray.push(
             {
               title: fields[`${item.type}${index}`],
               type: item.type,
-              points: parseInt(fields[`points${index}`])
+              points: fields[`points${index}`] ? parseInt(fields[`points${index}`]) : 1
             }
           )
         }
@@ -150,6 +172,10 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
                 return (
                   <AssessmentContent1 key={e.key} item={e} index={i} removeItem={() => handleRemove(i)} formik={formik} />
                 )
+              } else if (e.type === "content") {
+                return (
+                  <AssessmentContent3 key={e.key} item={e} addContent={(e) => addContent(e, i)} removeItem={() => handleRemove(i)} />
+                )
               } else {
                 return (
                   <AssessmentContent2 key={e.key} item={e} index={i} formik={formik} removeItem={() => handleRemove(i)} addSubItem={() => handleAddSubItem(i)} removeSubitem={(j) => handleRemoveSubItem(i, j)} />
@@ -175,10 +201,16 @@ export default function CreateAssessment({ workBookId, sectionId, open }) {
                 alignItems="center"
               >
                 <Grid item>
+                  <div className='o_icon_wrapper' onClick={() => addItem('content')}>
+                    <AddIcon style={{ fill: "#FFA659" }} />
+                  </div>
+                  <Typography style={{ color: "#00000099", fontSize: "15px", paddingTop: "5px" }}>Add Content</Typography>
+                </Grid>
+                <Grid item>
                   <div className='o_icon_wrapper' onClick={() => addItem('text')}>
                     <AddIcon style={{ fill: "#FFA659" }} />
                   </div>
-                  <Typography style={{ color: "#00000099", fontSize: "15px", paddingTop: "5px" }}>Add Text</Typography>
+                  <Typography style={{ color: "#00000099", fontSize: "15px", paddingTop: "5px" }}>Add Text Input</Typography>
                 </Grid>
                 <Grid item>
                   <div className='o_icon_wrapper' onClick={() => addItem('textarea')}>
