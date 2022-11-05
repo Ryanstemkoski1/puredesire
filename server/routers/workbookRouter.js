@@ -147,7 +147,9 @@ router.put("/update-section/:id",
             {
                 $set: {
                     "sections.$.title": req.body.sections[0].title,
-                    'sections.$.description': req.body.sections[0].description
+                    'sections.$.description': req.body.sections[0].description,
+                    'sections.$.s_header_image': req.body.sections[0].s_header_image,
+                    'sections.$.s_pdf_download': req.body.sections[0].s_pdf_download
                 }
             },
             {

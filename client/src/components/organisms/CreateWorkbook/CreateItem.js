@@ -7,13 +7,38 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from 'yup';
+import { useDropzone } from "react-dropzone";
 import CreateSectionContents from "../../molecules/CreateWorkbook/CreateSectionContents";
+import { ProgressBar } from "../../atoms";
 
 export default function CreateItems({ item, workBookId }) {
   const queryClient = useQueryClient()
 
   const [open, setOpen] = useState(false)
   const [deleteItem, setDeleteItem] = useState(false)
+  const [progress, setProgress] = useState(0);
+  const [headerImage, setHeaderImage] = useState(() => {
+    if (item.s_header_image) {
+      return [{
+        type: "image",
+        path: item.s_header_image
+      }]
+    } else {
+      return []
+    }
+  })
+  const [uploadingImg, setUploadingImg] = useState(false)
+  const [uploadingPdf, setUploadingPdf] = useState(false)
+  const [pdfDownload, setPdfDownload] = useState(() => {
+    if (item.s_pdf_download) {
+      return [{
+        type: "application/pdf",
+        path: item.s_pdf_download
+      }]
+    } else {
+      return []
+    }
+  })
 
   const removeSectionMutation = useMutation(
     (params) => {
@@ -51,12 +76,124 @@ export default function CreateItems({ item, workBookId }) {
     }
   )
 
+  const UploadImage = () => {
+    const { getRootProps, getInputProps } = useDropzone({
+      accept: { 'image/*': [] },
+      onDrop: (acceptedFiles) => {
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data;boundary=MyBoundary'
+          },
+          onUploadProgress: (data) => {
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          }
+        };
+        let fd = new FormData();
+        fd.append('s_header_image', acceptedFiles[0])
+        setHeaderImage(acceptedFiles)
+        setUploadingImg(acceptedFiles.length > 0)
+        axios
+          .post(process.env.REACT_APP_API_URL + "/workbook/uploads", fd, config)
+          .then((res) => {
+            setUploadingImg(false)
+            if (res.status === 200) {
+              formik.setFieldValue('s_header_image', res.data.s_header_image)
+
+            } else Promise.reject();
+          })
+          .catch((err) => alert('Upload a valid file format or reduce the file size.'));
+      }
+    });
+    return (
+      <div>
+        { }
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} multiple={false} />
+          <Typography style={{ fontSize: '18px', fontWeight: "500", color: "#00000099" }}>Drag and Drop</Typography>
+          <Typography style={{ fontSize: '14px' }}>your files here, or browse</Typography>
+        </div>
+      </div>
+    );
+  };
+
+  const UploadPDF = () => {
+    const { getRootProps, getInputProps } = useDropzone({
+      accept: { 'application/pdf': [] },
+      onDrop: (acceptedFiles) => {
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data;boundary=MyBoundary'
+          },
+          maxContentLength: 10000000,
+          maxBodyLength: 10000000,
+          onUploadProgress: (data) => {
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          }
+        };
+        let fd = new FormData();
+        fd.append('s_pdf_download', acceptedFiles[0])
+        setPdfDownload(acceptedFiles)
+        setUploadingPdf(acceptedFiles.length > 0)
+        axios
+          .post(process.env.REACT_APP_API_URL + "/workbook/uploads", fd, config)
+          .then((res) => {
+            setUploadingPdf(false)
+            if (res.status === 200) {
+              formik.setFieldValue('s_pdf_download', res.data.s_pdf_download)
+
+            } else Promise.reject();
+          })
+          .catch((err) => alert('Upload a valid file format or reduce the file size.'));
+      }
+    });
+    return (
+      <div>
+        { }
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} multiple={false} />
+          <Typography style={{ fontSize: '18px', fontWeight: "500", color: "#00000099" }}>Drag and Drop</Typography>
+          <Typography style={{ fontSize: '14px' }}>your files here, or browse</Typography>
+        </div>
+      </div>
+    );
+  };
+
+  const removeMedia = (path) => {
+    let imgPath = ''
+    if (formik.values.s_header_image.includes(path)) imgPath = formik.values.s_header_image
+    else if (formik.values.s_pdf_download.includes(path)) imgPath = formik.values.s_pdf_download
+
+    if (imgPath) {
+      const data = {
+        path: imgPath
+      }
+
+      axios
+        .post(process.env.REACT_APP_API_URL + "/workbook/delete", data)
+        .then((res) => {
+          if (res.status === 200) {
+          } else Promise.reject();
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+
+      if (formik.values.s_header_image.includes(path)) {
+        setHeaderImage([])
+        formik.setFieldValue('s_header_image', '')
+      } else if (formik.values.s_pdf_download.includes(path)) {
+        setPdfDownload([])
+        formik.setFieldValue('s_pdf_download', '')
+      }
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       title: item.title || "",
       description: item.description || "",
-      s_header_image: '',
-      s_pdf_download: ''
+      s_header_image: item.s_header_image || "",
+      s_pdf_download: item.s_pdf_download || ""
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -66,7 +203,9 @@ export default function CreateItems({ item, workBookId }) {
           {
             _id: item._id,
             title: fields.title,
-            description: fields.description
+            description: fields.description,
+            s_header_image: fields.s_header_image,
+            s_pdf_download: fields.s_pdf_download,
           }
         ]
       }
@@ -119,6 +258,29 @@ export default function CreateItems({ item, workBookId }) {
                       onChange={formik.handleChange}
                       error={formik.touched.description && Boolean(formik.errors.description)}
                     />
+                  </Grid>
+                </Grid>
+                <Grid container
+                  spacing={3}
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  className="fileDrop">
+                  <Grid item xs={12} sm={6}>
+                    <div className="form-group" style={{ marginBottom: "0" }}>
+                      <label htmlFor="file" className="label">Section Header Image</label>
+                      <UploadImage />
+                      <Typography style={{ padding: "10px 0", fontSize: '14px', color: "#00000099" }}>Recommended dimensions: 1200x500</Typography>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <div className="form-group" style={{ marginBottom: "0" }}>
+                      <label htmlFor="file" className="label">PDF Download</label>
+                      <UploadPDF />
+                    </div>
+                    <ProgressBar file={headerImage} uploading={uploadingImg} progress={progress} removeMedia={removeMedia} />
+                    <ProgressBar file={pdfDownload} uploading={uploadingPdf} progress={progress} removeMedia={removeMedia} />
                   </Grid>
                 </Grid>
                 <Grid container
