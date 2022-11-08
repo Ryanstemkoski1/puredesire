@@ -248,3 +248,8 @@ ul.invoices {
 .no-scroll::-webkit-scrollbar {
     width: 0;
 }
+
+.nav.dropdown{
+    max-height:0 !important;
+    overflow: hidden;
+}

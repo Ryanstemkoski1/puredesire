@@ -255,6 +255,22 @@ function DashboardContent() {
                                         <a href={'/library'}>Library</a>
                                     </Typography>}>
                                 </Route>
+                                <Route path="library/:id" element={
+                                    <Typography
+                                        component="p"
+                                        variant="p"
+                                        color="inherit"
+                                        noWrap
+                                        sx={{ flexGrow: 1, alignItems: "center" }}
+                                        className="breadCrumb"
+
+                                    >
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
+                                        <a href={'/library'}>Library</a>
+                                        <span style={{ margin: '0 10px', fontSize: '12px' }}>/</span>
+                                        <span>Workbook</span>
+                                    </Typography>}>
+                                </Route>
                                 <Route path="recent-purchases" element={
                                     <Typography
                                         component="p"

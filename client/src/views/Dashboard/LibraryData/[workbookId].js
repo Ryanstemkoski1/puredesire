@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Link, Paper, Skeleton, Typography } from "@mui/material";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { Box, Checkbox, FormControl, FormControlLabel, Grid, Link, Paper, Radio, RadioGroup, Skeleton, TextField, Typography } from "@mui/material";
 import { useParams } from 'react-router-dom'
 import { useQuery } from "react-query";
-import axios from "axios";
-import { RadarChart } from "recharts";
+import axios from "axios"
+import Slider from '@mui/material/Slider';
+import { LeftNav } from "../../../components/molecules/clientWorbook";
 
 export default function LibraryItemData() {
   const param = useParams()
@@ -18,9 +17,10 @@ export default function LibraryItemData() {
 
   const workbook = workBookQuery.data || {}
   const workbookItems = workBookItemQuery.data || []
+
   useEffect(() => {
     if (!!workbookItems.length) {
-      setActiveItem(workbookItems[0])
+      setActiveItem(workbookItems[1])
     }
   }, [workbookItems])
 
@@ -52,7 +52,7 @@ export default function LibraryItemData() {
     } else if (!!item && item.type === "Assessment") {
       return (
         <Box
-          sx={{ marginTop: "100px", paddingLeft: "30px" }}
+          sx={{ marginTop: "100px", paddingLeft: "30px", textAlign: "left" }}
         >
           <Typography
             sx={{
@@ -62,7 +62,133 @@ export default function LibraryItemData() {
               fontWeight: 500
             }} >{item.title}</Typography>
           <Box>
-            {item.content}
+            {!!item.questions && item.questions.filter((question) => {
+              if (question.type === "content") {
+                return question
+              }
+            }).map((question) => {
+              return (
+                <Box
+                  key={question._id}
+                  sx={{
+                    color: "#4C4C4C",
+                    marginTop: "30px"
+                  }}>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: question.title }}>
+                  </div>
+                </Box>
+              )
+            })}
+            
+            {!!item.questions && item.questions.map((question, i) => {
+              if (question.type === "text") {
+                return (
+                  <Box
+                    key={question._id}
+                    sx={{
+                      color: "#4C4C4C",
+                      marginTop: "30px"
+                    }}>
+                    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>{i + 1} . {question.title}</Typography>
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      placeholder="Type here..."
+                    />
+                  </Box>
+                )
+              } else if (question.type === "textarea") {
+                return (
+                  <Box
+                    key={question._id}
+                    sx={{
+                      color: "#4C4C4C",
+                      marginTop: "30px"
+                    }}>
+                    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>{i + 1} . {question.title}</Typography>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      multiline
+                      rows={4}
+                      placeholder="Type here..."
+                    />
+                  </Box>
+                )
+              } else if (question.type === "rating") {
+                return (
+                  <Box
+                    key={question._id}
+                    sx={{
+                      color: "#4C4C4C",
+                      marginTop: "30px",
+                      maxWidth: "400px"
+                    }}>
+                    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>{i + 1} . {question.title}</Typography>
+                    <Slider
+                      aria-label="Raging"
+                      defaultValue={3}
+                      valueLabelDisplay="auto"
+                      step={1}
+                      marks
+                      min={1}
+                      max={12}
+                    />
+                  </Box>
+                )
+              } else if (question.type === "radio") {
+                return (
+                  <Box
+                    key={question._id}
+                    sx={{
+                      color: "#4C4C4C",
+                      marginTop: "30px"
+                    }}>
+                    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>{i + 1} . {question.title}</Typography>
+                    <FormControl sx={{ mt: 1 }} >
+                      <RadioGroup
+                        aria-labelledby="assessment-radio-buttons-group-label"
+                        name="assessment-radio-buttons-group">
+                        {!!question.options && question.options.map((option, index) => (
+                          <FormControlLabel
+                            control={
+                              <Radio name={option.title} />
+                            }
+                            label={option.title}
+                            value={option.title}
+                            key={option._id}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
+                )
+              } else if (question.type === "checkbox") {
+                return (
+                  <Box
+                    key={question._id}
+                    sx={{
+                      color: "#4C4C4C",
+                      marginTop: "30px"
+                    }}>
+                    <Typography sx={{ fontWeight: "500", fontSize: "15px" }}>{i + 1} . {question.title}</Typography>
+                    <FormControl sx={{ mt: 1 }} component="fieldset" variant="standard">
+                      {!!question.options && question.options.map((option, index) => (
+                        <FormControlLabel
+                          control={
+                            <Checkbox name="gilad" />
+                          }
+                          label={option.title}
+                          key={option._id}
+                        />
+                      ))}
+                    </FormControl>
+                  </Box>
+                )
+              }
+            })}
           </Box>
         </Box>
       )
@@ -99,66 +225,7 @@ export default function LibraryItemData() {
 
               <Box sx={{ marginTop: "60px", background: "#EFEFEF", maxHeight: "60vh", borderRadius: "9px", padding: "15px 0", overflowY: "scroll" }} className="no-scroll">
                 {!!workbook.sections && workbook.sections.map((section, i) => (
-                  <Box key={section._id}>
-                    <Box
-                      sx={{
-                        display: { xs: "none", lg: "block" }
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          padding: "20px",
-                          cursor: "pointer"
-                        }}
-                      // onClick = {() => setActiveItem(section)}
-                      >
-                        <Box
-                          sx={{
-                            paddingRight: "10px"
-                          }}
-                        >
-                          <CheckCircleIcon style={{ width: "15px" }} />
-                        </Box>
-                        <Box>
-                          <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>{section.title}</Typography>
-                          <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>{section.description}</Typography>
-                        </Box>
-                      </Box>
-                      <Box
-                        sx={{
-                          paddingLeft: "20px",
-                        }}
-                      >
-                        {!!workbookItems && workbookItems.map((workbookitem, i) => {
-                          if (workbookitem.sectionid === section._id) {
-                            return (
-                              <Box
-                                key={workbookitem._id}
-                                sx={{
-                                  display: "flex",
-                                  padding: "10px",
-                                  cursor: "pointer"
-                                }}
-                              >
-                                <Box
-                                  sx={{
-                                    paddingRight: "10px"
-                                  }}
-                                >
-                                  <RadioButtonUncheckedIcon style={{ width: "15px" }} />
-                                </Box>
-                                <Box>
-                                  <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>{section.title}</Typography>
-                                  <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>{section.description}</Typography>
-                                </Box>
-                              </Box>
-                            )
-                          }
-                        })}
-                      </Box>
-                    </Box>
-                  </Box>
+                  <LeftNav key={section._id} section={section} index={i} workbookItems={workbookItems} changeItemContent={(item) => setActiveItem(item)} />
                 ))}
               </Box>
             </Box>
