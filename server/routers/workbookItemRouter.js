@@ -76,7 +76,7 @@ router.post("/uploads", upload.fields([{ name: 'image', maxCount: 1 },]), async 
 })
 
 
-//GET WorkbookItems
+//GET WorkbookItems by Section Id
 router.get("/:id", async (req, res) => {
   WorkbookItem.find({ sectionid: req.params.id }, (error, data, next) => {
     if (error) {
@@ -85,6 +85,18 @@ router.get("/:id", async (req, res) => {
       res.json(data);
     }
   });
+})
+
+//Get wookbookItems by workBook id
+
+router.post("/allitems", async (req, res) => {
+  WorkbookItem.find(req.body, (err, data, next) => {
+    if (err) {
+      return next(err)
+    } else {
+      res.json(data)
+    }
+  })
 })
 
 //Update WorkBookItems
@@ -106,7 +118,6 @@ router.put("/update-workbookitem/:id", async (req, res, next) => {
   // )
   res.send({ success: 'WorkbookItem updated successfully.' });
 })
-
 
 //Update WorkBookItem Order
 router.put("/update-itemorder", async (req, res) => {

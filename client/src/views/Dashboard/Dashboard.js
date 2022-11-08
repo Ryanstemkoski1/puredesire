@@ -24,7 +24,6 @@ import Chart from './Chart';
 import DashboardData from './DashboardData';
 import UserDashboardData from './UserDashboardData';
 import ResponsiveDrawer from '../../components/responsiveDrawer';
-import LibraryData from './LibraryData';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import RecentPurchasesData from "./RecentPurchasesData";
@@ -58,6 +57,7 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import axios from "axios";
 import { Authentication } from "../Authentication";
+import { LibraryData, LibraryItemData } from "../Dashboard/LibraryData/index"
 
 // require('dotenv').config()
 //
@@ -383,7 +383,7 @@ function DashboardContent() {
                                         sx={{ flexGrow: 1 }}
                                         className="breadCrumb"
                                     >
-                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span> 
+                                        <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a> <span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
                                         <a href={'/workbook'}>Digital Library</a>
                                     </Typography>}>
                                 </Route>
@@ -397,7 +397,7 @@ function DashboardContent() {
                                         className="breadCrumb"
                                     >
                                         <a href={'/'}><HomeIcon sx={{ mr: 1 }} /></a><span style={{ marginRight: '10px', fontSize: '12px' }}>/</span>
-                                        <a href={'/workbook'}>Digital Library</a> <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span> 
+                                        <a href={'/workbook'}>Digital Library</a> <span style={{ marginLeft: '10px', marginRight: '10px', fontSize: '12px' }}>/</span>
                                         Create New Workbook
                                     </Typography>}>
                                 </Route>
@@ -448,37 +448,38 @@ function DashboardContent() {
                 >
                     <Toolbar />
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-                            <Router>
-                                <Routes>
-                                    {/*<Route path="/" element={<UserList />}></Route>*/}
-                                    { userView
-                                        ? <Route path="/" element={<UserDashboardData />}></Route>
-                                        : <Route path="/" element={<DashboardData />}></Route>
-                                    }
-                                    <Route path="library" element={<LibraryData />}></Route>
-                                    <Route path="recent-purchases" element={<RecentPurchasesData />}></Route>
-                                    <Route path="credits" element={<CreditsData />}></Route>
-                                    <Route path="disclaimers" element={<DisclaimersData />}></Route>
-                                    {/*<Route path="groups" element={<GroupsData />}></Route>*/}
-                                    <Route path="notebooks" element={<NotebooksData />}></Route>
-                                    <Route path="assessments" element={<AssessmentsData />}></Route>
-                                    <Route path="user" element={<UserList />}></Route>
-                                    <Route path="user/create-user" element={<CreateUser />}></Route>
-                                    <Route path="user/edit-user/:id" element={<EditUser />}></Route>
-                                    <Route path="user/user-list" element={<UserList />}></Route>
-                                    <Route path="workbook" element={<WorkbookList />}></Route>
-                                    <Route path="workbook/create-workbook" element={<CreateWorkbook />}></Route>
-                                    <Route path="workbook/edit-workbook/:id" element={<EditWorkbook />}></Route>
-                                    <Route path="workbook/workbook-list" element={<WorkbookList />}></Route>
-                                    { userView
-                                        ? <Route path="group" element={<UserGroupsData />}></Route>
-                                        : <Route path="group" element={<GroupList />}></Route>
-                                    }
-                                    <Route path="group/create-group" element={<CreateGroup />}></Route>
-                                    <Route path="group/edit-group/:id" element={<EditGroup />}></Route>
-                                    <Route path="group/group-list" element={<GroupList />}></Route>
-                                </Routes>
-                            </Router>
+                        <Router>
+                            <Routes>
+                                {/*<Route path="/" element={<UserList />}></Route>*/}
+                                {userView
+                                    ? <Route path="/" element={<UserDashboardData />}></Route>
+                                    : <Route path="/" element={<DashboardData />}></Route>
+                                }
+                                <Route path="library" element={<LibraryData />}></Route>
+                                <Route path="library/:id" element={<LibraryItemData />}></Route>
+                                <Route path="recent-purchases" element={<RecentPurchasesData />}></Route>
+                                <Route path="credits" element={<CreditsData />}></Route>
+                                <Route path="disclaimers" element={<DisclaimersData />}></Route>
+                                {/*<Route path="groups" element={<GroupsData />}></Route>*/}
+                                <Route path="notebooks" element={<NotebooksData />}></Route>
+                                <Route path="assessments" element={<AssessmentsData />}></Route>
+                                <Route path="user" element={<UserList />}></Route>
+                                <Route path="user/create-user" element={<CreateUser />}></Route>
+                                <Route path="user/edit-user/:id" element={<EditUser />}></Route>
+                                <Route path="user/user-list" element={<UserList />}></Route>
+                                <Route path="workbook" element={<WorkbookList />}></Route>
+                                <Route path="workbook/create-workbook" element={<CreateWorkbook />}></Route>
+                                <Route path="workbook/edit-workbook/:id" element={<EditWorkbook />}></Route>
+                                <Route path="workbook/workbook-list" element={<WorkbookList />}></Route>
+                                {userView
+                                    ? <Route path="group" element={<UserGroupsData />}></Route>
+                                    : <Route path="group" element={<GroupList />}></Route>
+                                }
+                                <Route path="group/create-group" element={<CreateGroup />}></Route>
+                                <Route path="group/edit-group/:id" element={<EditGroup />}></Route>
+                                <Route path="group/group-list" element={<GroupList />}></Route>
+                            </Routes>
+                        </Router>
                         <Copyright />
                     </Container>
                 </Box>
