@@ -28,7 +28,7 @@ export default function LibraryItemData() {
     if (!!item && item.type === "Lesson") {
       return (
         <Box
-          sx={{ marginTop: "100px", paddingLeft: { lg: "30px" } }}
+          sx={{ marginTop: "100px", paddingLeft: { lg: "30px" }, textAlign: "left" }}
         >
           <Typography
             sx={{
@@ -79,13 +79,8 @@ export default function LibraryItemData() {
             flexDirection: 'column',
           }}
         >
-          <Grid container
-            spacing={3}
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            className="userToolbar">
-            <Grid item xs={12} lg={3} sx={{ position: { lg: "sticky" }, top: "100px" }}>
+          <Box>
+            <Box sx={{ position: { lg: "fixed" }, maxWidth: { lg: "300px" }, textAlign: "left" }}>
               <Link href="/library" >
                 <span style={{ fontSize: "14px", cursor: "pointer", color: "#1A9182", fontWeight: "600" }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="7.27" height="12.335" viewBox="0 0 7.27 12.335" style={{ marginRight: "10px" }}>
@@ -102,7 +97,7 @@ export default function LibraryItemData() {
                   fontWeight: 500
                 }} >{workbook.title}</Typography>
 
-              <Box sx={{ marginTop: "60px", background: "#EFEFEF", borderRadius: "9px", padding: "15px 0" }}>
+              <Box sx={{ marginTop: "60px", background: "#EFEFEF", maxHeight: "60vh", borderRadius: "9px", padding: "15px 0", overflowY: "scroll" }} className="no-scroll">
                 {!!workbook.sections && workbook.sections.map((section, i) => (
                   <Box key={section._id}>
                     <Box
@@ -146,7 +141,6 @@ export default function LibraryItemData() {
                                   cursor: "pointer"
                                 }}
                               >
-
                                 <Box
                                   sx={{
                                     paddingRight: "10px"
@@ -166,96 +160,12 @@ export default function LibraryItemData() {
                     </Box>
                   </Box>
                 ))}
-                {/* <Box sx={{ overflow: "hidden" }}>
-                  <Grid container
-                    spacing={3}
-                    direction="row"
-                    sx={{ padding: "15px 0", background: "#E3E3E3", margin: "0" }}
-                    alignItems="flex-start">
-                    <Grid item xs={1} >
-                      <CheckCircleIcon style={{ width: "15px" }} />
-                    </Grid>
-                    <Grid item xs={10} >
-                      <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>Section 1</Typography>
-                      <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>About the course.</Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid container
-                    spacing={3}
-                    direction="row"
-                    sx={{ padding: "15px 0", margin: "0" }}
-                    alignItems="flex-start">
-                    <Grid item xs={1} >
-                    </Grid>
-                    <Grid item xs={10} >
-                      <Grid container
-                        spacing={3}
-                        direction="row"
-                        sx={{ margin: "0" }}
-                        alignItems="flex-start">
-                        <Grid item xs={1} >
-                          <CheckCircleIcon style={{ width: "15px" }} />
-                        </Grid>
-                        <Grid item xs={10} >
-                          <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>Section 1</Typography>
-                          <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>About the course.</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid container
-                    spacing={3}
-                    direction="row"
-                    sx={{ padding: "15px 0", margin: "0", background: "transparent linear-gradient(103deg, #1C998C 0%, #36505B 100%) 0% 0% no-repeat padding-box" }}
-                    alignItems="flex-start">
-                    <Grid item xs={1} >
-                    </Grid>
-                    <Grid item xs={10} >
-                      <Grid container
-                        spacing={3}
-                        direction="row"
-                        sx={{ margin: "0" }}
-                        alignItems="flex-start">
-                        <Grid item xs={1} >
-                          <RadioButtonUncheckedIcon style={{ width: "15px", fill: "#fff" }} />
-                        </Grid>
-                        <Grid item xs={10} >
-                          <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>Section 1</Typography>
-                          <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>About the course.</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid container
-                    spacing={3}
-                    direction="row"
-                    sx={{ padding: "15px 0", margin: "0" }}
-                    alignItems="flex-start">
-                    <Grid item xs={1} >
-                    </Grid>
-                    <Grid item xs={10} >
-                      <Grid container
-                        spacing={3}
-                        direction="row"
-                        sx={{ margin: "0" }}
-                        alignItems="flex-start">
-                        <Grid item xs={1} >
-                          <RadioButtonUncheckedIcon style={{ width: "15px" }} />
-                        </Grid>
-                        <Grid item xs={10} >
-                          <Typography sx={{ fontWeight: "bold", fontSize: "15px", color: "#4C4C4C" }}>Section 1</Typography>
-                          <Typography sx={{ fontSize: "15px", color: "#4C4C4C" }}>About the course.</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Box> */}
               </Box>
-            </Grid>
-            <Grid item xs={12} lg={9}>
+            </Box>
+            <Box sx={{ marginLeft: { lg: "310px" } }}>
               {itemContent(activeItem)}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Paper>
       </Grid>
     </Grid>
